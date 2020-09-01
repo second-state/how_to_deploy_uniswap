@@ -1,4 +1,4 @@
-# How to deploy Uniswap V1
+# How to deploy Uniswap
 
 ## Background
 This article provides step-by-step instructions for installing [Uniswap](https://uniswap.org/) V1 on any [Ethereum](https://ethereum.org/en/) compatible blockchain.
