@@ -32,13 +32,3 @@ The image above shows the [entry point to the official Uniswap interface](https:
 
 ![Uniswap frontend](../images/toggle.png)
 
-## How to - user generated tokens (ERC20 compliant tokens)
-
-Before we start deploying Uniswap, let's create some new ERC20 tokens that we can trade. This [ERC20 token source code](../erc20.sol) (which is for demo purposes only) can be compiled to generate the necessary ABI and bytecode. Let's go ahead and compile that on [remix](https://remix.ethereum.org/#optimize=false&evmVersion=null&version=soljson-v0.4.26+commit.4563c3fc.js). Simply paste the raw erc20.sol into remix and then click compile.  
-
-
-## How to - Uniswap Factory and Exchange contracts
-
-The second thing that we need to do is launch Uniswap's Factory and Exchange contracts. The following Node.js script will do this automatically for us.
-
-
