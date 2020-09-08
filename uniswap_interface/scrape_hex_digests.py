@@ -37,6 +37,6 @@ print("Writing these results to hex_values.json file ...")
 output_file = open('hex_values.json', 'w')
 output_file.writelines(json_formatted_str)
 output_file.close()
-print("Total hex values found: " + counter)
+print("Total hex values found: " + str(counter))
 print("Success!")
 
