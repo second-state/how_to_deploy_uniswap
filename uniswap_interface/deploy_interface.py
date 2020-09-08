@@ -19,9 +19,9 @@ json_data = json.loads(raw_data)
 # v1_mainnet_factory_address = "0xc0a47dFe034B400B47bDaD5FecDa2621de6c4d95"
 # v2_mainnet_factory_address = "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f"
 
-# # Factory
-# sed_command_v1_fac = 's/' + v1_mainnet_factory_address + '/' + data["uniswap_factory"] + '/g'
-# sed_command_v2_fac = 's/' + v2_mainnet_factory_address + '/' + data["uniswap_v2"] + '/g'
+# Factory
+sed_command_v1_fac = 's/' + v1_mainnet_factory_address + '/' + json_data["contract_address"]["uniswap_factory"] + '/g'
+sed_command_v2_fac = 's/' + v2_mainnet_factory_address + '/' + json_data["contract_address"]["uniswap_v2"] + '/g'
 
 
 # # Update files
@@ -30,5 +30,5 @@ for individual_dir in dirs_to_process:
     for (root, dirs, files) in os.walk(individual_dir):
         for name in files:
             print("Processing: " + os.path.join(root, name))
-#             subprocess.call(['sed', '-ir', sed_command_v1_fac, os.path.join(root, name)])
-#             subprocess.call(['sed', '-ir', sed_command_v2_fac, os.path.join(root, name)])
+            subprocess.call(['sed', '-ir', sed_command_v1_fac, os.path.join(root, name)])
+            subprocess.call(['sed', '-ir', sed_command_v2_fac, os.path.join(root, name)])

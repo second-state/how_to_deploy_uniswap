@@ -9,17 +9,22 @@ import sys
 import json
 
 def main(argv):
+    print(sys.argv[0])
+    print(sys.argv[1])
+    dirs_to_process = []
+    if len(sys.argv) == 2:
+        dirs_to_process.append(sys.argv[1])
+    else:
+        dirs_to_process.append('../../public/')
+        dirs_to_process.append('../../build/')
+        dirs_to_process.append('../../node_modules')
+        dirs_to_process.append('../../src')
+    print("Dirs to process: " + dirs_to_process[0])
     temp_output = {}
     counter = 0
     print("Starting ...")
     hash_40 = re.compile('0x[a-fA-F0-9]{40}')
     hash_64 = re.compile('0x[a-fA-F0-9]{64}')
-    # # Update files
-    if len(sys.argv) == 1:
-        dirs_to_process = []
-        dirs_to_process.append = sys.argv[1]
-    else:
-        dirs_to_process = ['../../public/', '../../build/', '../../node_modules', '../../src']
     for individual_dir in dirs_to_process:
         for (root, dirs, files) in os.walk(individual_dir):
             for name in files:
@@ -54,5 +59,5 @@ def main(argv):
     print("Success!")
 
 if __name__ == "__main__":
-   main(sys.argv[1:])
+    main(sys.argv[1:])
 
