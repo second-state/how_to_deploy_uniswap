@@ -12,6 +12,12 @@ git clone https://github.com/Uniswap/uniswap-interface.git
 cd uniswap-interface
 ```
 
+
+```
+npm install
+```
+# Modify - scrape
+
 ```
 git clone https://github.com/second-state/how_to_deploy_uniswap.git
 ```
@@ -19,4 +25,25 @@ git clone https://github.com/second-state/how_to_deploy_uniswap.git
 ```
 cd how_to_deploy_uniswap/uniswap_interface
 ```
+Scrape all hex values from the source code to find where transactionIds, contract addresses, accounts and content hashes have been hard coded into the source code.
 
+```
+python3 scrape_hex_digests.py
+```
+The above script creates a `hex_values.json` file which shows the filenames and hex values that are present throughout the source code
+
+# Modify - update
+
+
+# Build 
+```
+npm run build
+```
+
+# Deploy
+* Move to Apache environment
+
+```
+cd ~/uniswap-interface
+cp -rp build/* /var/www/html/
+```
