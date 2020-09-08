@@ -1,3 +1,5 @@
+** Please note this is a draft and this code is under heavy development. Not to be used in production **
+
 # How to deploy Uniswap
 
 ## Background
@@ -23,7 +25,7 @@ The most recent version of Uniswap, V2, includes a number of tangible improvemen
 Uniswap V2's [core Solidity smart contracts](https://github.com/Uniswap/uniswap-v2-core/tree/master/contracts) contain the logic which allows the Uniswap automated liquidity protocol to operate.
 
 ### Front-end
-Whilst it is posible to interact with Uniswap via smart contract function executions in the command line (using a terminal), the official front-end web application provides a much nicer user experience; facilitating trading via mouse clicks and also facilitating wallet integration via browser extensions such as [Metamask](https://metamask.io/).
+Whilst it is posible to interact with Uniswap via smart contract function executions (in the command line/terminal), the official [front-end web application](https://github.com/Uniswap/uniswap-interface) provides a much nicer user experience; facilitating trading via mouse clicks and also facilitating wallet integration via browser extensions such as [Metamask](https://metamask.io/).
 
 ![Uniswap frontend](../images/uniswap.png)
 
@@ -31,4 +33,8 @@ The image above shows the [entry point to the official Uniswap interface](https:
 
 
 ![Uniswap frontend](../images/toggle.png)
+
+## Installation
+
+To install Uniswap, 
 

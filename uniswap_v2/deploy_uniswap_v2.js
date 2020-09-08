@@ -1,3 +1,5 @@
+//** Please note this is a draft and this code is under heavy development. Not to be used in production **
+
 'use strict';
 const fs = require('fs');
 const HDWalletProvider = require('truffle-hdwallet-provider');
