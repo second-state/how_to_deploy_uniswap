@@ -31,4 +31,9 @@ for individual_dir in dirs_to_process:
                 fr.close()
 json_formatted_str = json.dumps(temp_output, indent=2)
 print("Results\n" + json_formatted_str)
-print("Finished!")
+print("Writing these results to hex_values.json file ...")
+output_file = open('hex_values.json', 'w')
+output_file.writelines(json_formatted_str)
+output_file.close()
+print("Success!")
+
