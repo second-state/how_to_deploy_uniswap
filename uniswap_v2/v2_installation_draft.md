@@ -11,6 +11,16 @@ Add the rpc endpoint to .env and .env.production files
 /home/ubuntu/uniswap-interface/.env.production
 ```
 
+Ensure that the network id is listed in the `index.ts` file located at `src/connectors/index.ts` for examle ...
+
+```
+export const injected = new InjectedConnector({
+  supportedChainIds: [1, 2, 3, 4, 5, 42]
+})
+
+```
+
+
 See Appendix A at the end of this file for current contract addresses which are in use on Oasis demo network.
 
 * Update factory address
@@ -49,7 +59,23 @@ and
 /home/ubuntu/uniswap-interface/src/hooks/useContract.ts
 ```
 
+* Ad-hoc repairs
+I had to update the src/hooks/useContracts.ts file like this (remove the `WETH` from this line)
+```
+import { ChainId } from '@uniswap/sdk'
+```
+Then also update the useWETHContract to look like this (where we remove the chainid section and also use the actual address where weth is deployed)
+```
+export function useWETHContract(withSignerIfPossible?: boolean): Contract | null {
+  return useContract('0x203162AA8b8e6b33c2c3c57246EC05bb46750287', WETH_ABI, withSignerIfPossible)
+}
+
+```
 * Build
+
+```
+npm install
+```
 
 ```
 npm run build
@@ -85,7 +111,7 @@ cp -rp build/* /var/www/html/
   "tokens": [
     {
       "chainId": 1,
-      "address": "0x5077026AC93F00a68C1E7d3e5962CE73609fB496",
+      "address": "0xeb2eF6b55f603B858cA30ea9bDeaA0Ef37C4625d",
       "symbol": "ALICE",
       "name": "ALICE Coin",
       "decimals": 18,
@@ -96,7 +122,7 @@ cp -rp build/* /var/www/html/
     },
     {
       "chainId": 1,
-      "address": "0x3fbB07Bd58DEE4DfbB2D99540106869409F85aA1",
+      "address": "0xEbd5F1cd48b786c27B8E9afa83771E9251cd0A00",
       "symbol": "BOB",
       "name": "Bob Coin",
       "decimals": 18,
@@ -109,7 +135,7 @@ cp -rp build/* /var/www/html/
   "version": {
     "major": 1,
     "minor": 0,
-    "patch": 0
+    "patch": 2
   }
 }
 ```
