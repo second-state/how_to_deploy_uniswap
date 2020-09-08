@@ -23,8 +23,8 @@ for individual_dir in dirs_to_process:
                 hash_40_results = hash_40.findall(fd)
                 hash_64_results = hash_64.findall(fd)
                 if len(hash_40_results) > 0 or len(hash_64_results) > 0:
-                	counter = counter + len(hash_40_results)
-                	counter = counter + len(hash_64_results)
+                    counter = counter + len(hash_40_results)
+                    counter = counter + len(hash_64_results)
                     temp_inner_object["hash_40"] = hash_40_results
                     temp_inner_object["hash_64"] = hash_64_results
                     temp_output[file_path] = temp_inner_object
