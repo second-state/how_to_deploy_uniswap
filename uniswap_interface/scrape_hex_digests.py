@@ -28,6 +28,7 @@ for individual_dir in dirs_to_process:
                     temp_output[file_path] = temp_inner_object
             except:
                 print("Skipping: " + file_path)
+                fr.close()
 json_formatted_str = json.dumps(temp_output, indent=2)
 print("Results\n" + json_formatted_str)
 print("Finished!")
