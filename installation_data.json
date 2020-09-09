@@ -11,6 +11,7 @@
   },
   "contract_address": {
     "uniswap_factory": "",
+    "weth": "",
     "uniswap_exchange_template": "",
     "alice_exchange": "",
     "bob_exchange": "",
