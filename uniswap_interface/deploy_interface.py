@@ -38,3 +38,5 @@ for individual_dir in dirs_to_process:
             print("Processing: " + os.path.join(root, name))
             subprocess.call(['sed', '-ir', sed_command_v1_fac, os.path.join(root, name)])
             subprocess.call(['sed', '-ir', sed_command_v2_fac, os.path.join(root, name)])
+            subprocess.call(['sed', '-ir', sed_command_v2_rou, os.path.join(root, name)])
+            subprocess.call(['sed', '-ir', sed_command_v2_mul, os.path.join(root, name)])
