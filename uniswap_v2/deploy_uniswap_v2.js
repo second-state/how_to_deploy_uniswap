@@ -57,13 +57,13 @@ var URL = "";
     var uniswapEnsRegistryAbi = data_object.abi.ens_registry;
     var uniswapUnisocksBytecode = data_object.bytecode.unisocks;
     var uniswapUnisocksAbi = data_object.abi.unisocks;
+    var uniswapWETHBytecode = data_object.bytecode.weth;
+    var uniswapWETHAbi = data_object.abi.weth;
 
 
     // Fee to setter account controls this factory forever. Please choose your feeToSetter account carefully
     // Must be secure and preserved; this is paramount
     var _feeToSetter = accounts[2];
-
-
     // Uniswap V2
     // V2 Factory Deployment
     console.log("Deploying Uniswap V2 now, please wait ...");
@@ -105,6 +105,52 @@ var URL = "";
             var feeToSetter = newContractInstance.methods.feeToSetter().call()
             feeToSetter.then(function(resultFeeToSetter) {
                 console.log("feeToSetter is currently set to: " + resultFeeToSetter);
+            })
+        });
+    // Uniswap V2
+    // V2 Factory Deployment
+    console.log("Deploying WETH now, please wait ...");
+    let uniswapWETH;
+    uniswapWETH = await web3.eth.sendTransaction({
+        from: accounts[2],
+        data: uniswapWETHBytecode
+    }); // Charlie accounts[2] is the owner
+    let uniswapWETHInstance = new web3.eth.Contract(uniswapWETHAbi, uniswapWETH.contractAddress);
+    uniswapWETHInstance.deploy({
+            data: uniswapWETHBytecode
+        })
+        .send({
+            from: accounts[2],
+            gas: 4700000,
+            gasPrice: '30000000000'
+        }, function(error, transactionHash) {
+            console.log(transactionHash);
+        })
+        .on('error', function(error) {
+            console.log(error);
+        })
+        .on('transactionHash', function(transactionHash) {
+            console.log("Transaction hash: " + transactionHash);
+        })
+        .on('receipt', function(receipt) {
+            console.log("Contract address: " + receipt.contractAddress) // contains the new contract address
+            data_object.contract_address.uniswap_weth = receipt.contractAddress;
+            let data_to_write = JSON.stringify(data_object, null, 2);
+            write_data(data_to_write);
+        })
+        .then(function(newContractInstance) {
+            console.log(newContractInstance.options.address) // instance with the new contract address
+            var name = newContractInstance.methods.name().call()
+            name.then(function(resultName) {
+                console.log("Name set to: " + resultName);
+            })
+            var symbol = newContractInstance.methods.symbol().call()
+            symbol.then(function(resultSymbol) {
+                console.log("Symbol set to: " + resultSymbol);
+            })
+            var totalSupply = newContractInstance.methods.totalSupply().call()
+            totalSupply.then(function(resultTotalSupply) {
+                console.log("Total Supply set to: " + resultTotalSupply);
             })
         });
 
