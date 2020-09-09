@@ -2,6 +2,15 @@
 
 # Draft only
 
+## Contracts
+
+The Uniswap v2 factory contract has a constructor which takes an address for the `feeToSetter` account.
+The address which is passed into the v2 factory constructor, can update both the public v2 Factory variables `feeTo` and `setFeeTo`. 
+At present, the mainnet ETH `feeTo` is set to `0x0000000000000000000000000000000000000000`.
+The `feeToSetter` however is set to `0xc0a4272bb5df52134178Df25d77561CfB17ce407`; an unused account (potentially generated completely off-line for safety reasons).
+
+The account address which is passed into the V2 factory constructor is of paramount importance. It controls who can be the next fee setter and ultimately is responsible for who receives fees in the future.
+
 ## Draft outline of the V2 interface setup
 
 Add the rpc endpoint to .env and .env.production files

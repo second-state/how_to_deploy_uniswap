@@ -13,7 +13,6 @@ const web3 = new Web3(new Web3.providers.HttpProvider(URL));
     })
     var feeToSetter = uniswapFactoryContract.methods.feeToSetter().call()
         feeToSetter.then(function(resultFeeToSetter) {
-        console.log("The fee to setter, is currently set to: " + resultFeeToSetter);
+        console.log("feeToSetter is currently set to: " + resultFeeToSetter);
     })
-    console.log("Finished!");
 })();

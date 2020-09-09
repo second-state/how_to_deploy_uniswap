@@ -68,13 +68,21 @@ var URL = "";
         from: accounts[2],
         data: uniswapV2Bytecode
     }); // Charlie accounts[2] is the owner
-    let uniswapV2Instance = new web3.eth.Contract(uniswapV2Abi, uniswapV2.contractAddress);
+    let uniswapV2Instance = new web3.eth.Contract(accounts[2], uniswapV2Abi, uniswapV2.contractAddress);
     console.log(`\nUniswap V2 deployed at ${uniswapV2.contractAddress}`);
-    console.log(`\n${uniswapV2}`);
-    console.log(`\n${uniswapV2Instance}`);
+    console.log(`\n${JSON.stringify(uniswapV2)}`);
+    console.log(`\n${JSON.stringify(uniswapV2Instance)}`);
     console.log(`Please store these details for future use ^^^\n`);
     data_object.contract_address.uniswap_v2 = uniswapV2.contractAddress;
-
+    var feeTo = uniswapV2Instance.methods.feeTo().call()
+        feeTo.then(function(resultFeeTo) {
+        console.log("feeTo is currently set to: " + resultFeeTo);
+    })
+    var feeToSetter = uniswapV2Instance.methods.feeToSetter().call()
+        feeToSetter.then(function(resultFeeToSetter) {
+        console.log("feeToSetter is currently set to: " + resultFeeToSetter);
+    })
+/*
     // V2 Multicall Deployment
     console.log("Deploying multicall now, please wait ...");
     let multicall;
@@ -104,6 +112,7 @@ var URL = "";
     data_object.contract_address.migrator = migrator.contractAddress;
 
     // V2 Router Deployment
+    // constructor(address _factory, address _WETH)
     console.log("Deploying router now, please wait ...");
     let router;
     router = await web3.eth.sendTransaction({
@@ -150,7 +159,7 @@ var URL = "";
     let data_to_write = JSON.stringify(data_object, null, 2);
     await write_data(data_to_write);
 
-
+*/
 
     await provider.engine.stop();
 })();
