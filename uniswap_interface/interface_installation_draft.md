@@ -35,11 +35,11 @@ Returns
 Total hex values found: 56
 ```
 ```
-python3 scrape_hex_digests.py '../../node_modules'
+python3 scrape_hex_digests.py '../../node_modules/@uniswap'
 ```
 Returns
 ```
-Total hex values found: 22, 929
+Total hex values found: 6, 430
 ```
 ```
 python3 scrape_hex_digests.py '../../cypress'

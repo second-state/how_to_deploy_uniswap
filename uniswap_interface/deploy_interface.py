@@ -16,13 +16,19 @@ f = open("../installation_data.json", "r")
 raw_data = f.read()
 json_data = json.loads(raw_data)
 
-# v1_mainnet_factory_address = "0xc0a47dFe034B400B47bDaD5FecDa2621de6c4d95"
-# v2_mainnet_factory_address = "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f"
+# Use this API to get ABI and Bytecode
+# http://api.etherscan.io/api?module=contract&action=getabi&address=0xTODO&format=raw
+v1_mainnet_factory_address = "0xc0a47dFe034B400B47bDaD5FecDa2621de6c4d95"
+v2_mainnet_factory_address = "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f"
+v2_mainnet_router_address = "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D"
+v2_mainnet_multicall_address = "0xeefBa1e63905eF1D7ACbA5a8513c70307C1cE441"
+v2_mainnet_migrator_address = "0x16D4F26C15f3658ec65B1126ff27DD3dF2a2996b"
 
 # Factory
 sed_command_v1_fac = 's/' + v1_mainnet_factory_address + '/' + json_data["contract_address"]["uniswap_factory"] + '/g'
 sed_command_v2_fac = 's/' + v2_mainnet_factory_address + '/' + json_data["contract_address"]["uniswap_v2"] + '/g'
-
+sed_command_v2_rou = 's/' + v2_mainnet_router_address + '/' + json_data["contract_address"]["router"] + '/g'
+sed_command_v2_mul = 's/' + v2_mainnet_multicall_address + '/' + json_data["contract_address"]["multicall"] + '/g'
 
 # # Update files
 dirs_to_process = ['../../src/', '../../build/']
