@@ -107,8 +107,8 @@ var URL = "";
                 console.log("feeToSetter is currently set to: " + resultFeeToSetter);
             })
         });
-    // Uniswap V2
-    // V2 Factory Deployment
+    // Uniswap V2 WETH
+    // V2 WETH Deployment
     console.log("Deploying WETH now, please wait ...");
     let uniswapWETH;
     uniswapWETH = await web3.eth.sendTransaction({
@@ -153,28 +153,6 @@ var URL = "";
                 console.log("Total Supply set to: " + resultTotalSupply);
             })
         });
-
-    /*
-        let uniswapV2;
-        uniswapV2 = await web3.eth.sendTransaction({
-            from: accounts[2],
-            data: uniswapV2Bytecode
-        }); // Charlie accounts[2] is the owner
-        let uniswapV2Instance = new web3.eth.Contract(uniswapV2Abi, uniswapV2.contractAddress);
-        console.log(`\nUniswap V2 deployed at ${uniswapV2.contractAddress}`);
-        console.log(`\n${JSON.stringify(uniswapV2)}`);
-        console.log(`\n${JSON.stringify(uniswapV2Instance)}`);
-        console.log(`Please store these details for future use ^^^\n`);
-        data_object.contract_address.uniswap_v2 = uniswapV2.contractAddress;
-        var feeTo = uniswapV2Instance.methods.feeTo().call()
-            feeTo.then(function(resultFeeTo) {
-            console.log("feeTo is currently set to: " + resultFeeTo);
-        })
-        var feeToSetter = uniswapV2Instance.methods.feeToSetter().call()
-            feeToSetter.then(function(resultFeeToSetter) {
-            console.log("feeToSetter is currently set to: " + resultFeeToSetter);
-        })
-    */
     /*
         // V2 Multicall Deployment
         console.log("Deploying multicall now, please wait ...");
