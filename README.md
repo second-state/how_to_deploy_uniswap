@@ -11,3 +11,6 @@ For detailed instructions on how to deploy Uniswap V2, please see the [Uniswap V
 
 ### Other
 For more/other information, please see the [official documentation of Uniswap V2](https://uniswap.org/docs/v2/)
+
+### How to deploy Uniswap Interface 
+For detailed instructions on how to deploy Uniswap Interface, please see the [Uniswap Interface](./uniswap_interface) section of this repository.
