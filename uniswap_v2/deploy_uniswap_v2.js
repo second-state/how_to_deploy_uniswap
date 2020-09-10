@@ -164,7 +164,7 @@ var URL = "";
     let uniswapROUTER2Instance = new web3.eth.Contract(uniswapRouterAbi, uniswapROUTER2.contractAddress);
     uniswapROUTER2Instance.deploy({
             data: uniswapRouterBytecode,
-            arguments: [data_object.contract_address.uniswap_v2 , data_object.contract_address.weth]
+            arguments: [data_object.contract_address.uniswap_v2, data_object.contract_address.weth]
         })
         .send({
             from: accounts[2],
@@ -305,24 +305,24 @@ var URL = "";
             console.log(newContractInstance.options.address) // instance with the new contract address
         });
 
-/*
-        // V2 Unisocks Deployment
-        console.log("Deploying Unisocks now, please wait ...");
-        let unisocks;
-        unisocks = await web3.eth.sendTransaction({
-            from: accounts[2],
-            data: uniswapUnisocksBytecode
-        }); // Charlie accounts[2] is the owner
-        let uniswapUnisocksInstance = new web3.eth.Contract(uniswapUnisocksAbi, unisocks.contractAddress);
-        console.log(`\nUniswap V2 deployed at ${unisocks.contractAddress}`);
-        console.log(`\n${unisocks}`);
-        console.log(`\n${uniswapUnisocksInstance}`);
-        console.log(`Please store these details for future use ^^^\n`);
-        data_object.contract_address.unisocks = unisocks.contractAddress;
-        let data_to_write = JSON.stringify(data_object, null, 2);
-        await write_data(data_to_write);
+    /*
+            // V2 Unisocks Deployment
+            console.log("Deploying Unisocks now, please wait ...");
+            let unisocks;
+            unisocks = await web3.eth.sendTransaction({
+                from: accounts[2],
+                data: uniswapUnisocksBytecode
+            }); // Charlie accounts[2] is the owner
+            let uniswapUnisocksInstance = new web3.eth.Contract(uniswapUnisocksAbi, unisocks.contractAddress);
+            console.log(`\nUniswap V2 deployed at ${unisocks.contractAddress}`);
+            console.log(`\n${unisocks}`);
+            console.log(`\n${uniswapUnisocksInstance}`);
+            console.log(`Please store these details for future use ^^^\n`);
+            data_object.contract_address.unisocks = unisocks.contractAddress;
+            let data_to_write = JSON.stringify(data_object, null, 2);
+            await write_data(data_to_write);
 
-*/
+    */
     let data_to_write = JSON.stringify(data_object, null, 2);
     await write_data(data_to_write);
     await provider.engine.stop();
