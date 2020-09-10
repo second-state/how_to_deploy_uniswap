@@ -1,18 +1,46 @@
+const fs = require('fs');
 const Web3 = require("web3");
-const URL = 'https://mainnet.infura.io';
+const URL = 'https://mainnet.infura.io/';
 const web3 = new Web3(new Web3.providers.HttpProvider(URL));
+
+function get_data(_message) {
+    return new Promise(function(resolve, reject) {
+        fs.readFile('../installation_data.json', (err, data) => {
+            if (err) throw err;
+            resolve(data);
+        });
+    });
+}
+
 (async () => {
     await web3.eth.net.isListening();
     console.log('Web3 is connected.');
-    uniswapFactoryAbi = [{"inputs":[{"internalType":"address","name":"_feeToSetter","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"token0","type":"address"},{"indexed":true,"internalType":"address","name":"token1","type":"address"},{"indexed":false,"internalType":"address","name":"pair","type":"address"},{"indexed":false,"internalType":"uint256","name":"","type":"uint256"}],"name":"PairCreated","type":"event"},{"constant":true,"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"allPairs","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"allPairsLength","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"}],"name":"createPair","outputs":[{"internalType":"address","name":"pair","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"feeTo","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"feeToSetter","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"getPair","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_feeTo","type":"address"}],"name":"setFeeTo","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_feeToSetter","type":"address"}],"name":"setFeeToSetter","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"}];
-    var uniswapFactoryContract = new web3.eth.Contract(uniswapFactoryAbi, "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f");
+
+    var data = await get_data();
+    var data_object = JSON.parse(data);
+
+// Factory
+    var uniswapV2Abi = data_object.abi.uniswap_v2;
+    var uniswapFactoryContract = new web3.eth.Contract(uniswapV2Abi, "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f");
     console.log("Checking feeTo ...");
     var feeTo = uniswapFactoryContract.methods.feeTo().call()
         feeTo.then(function(resultFeeTo) {
-        console.log("feeTo is currently set to: " + resultFeeTo);
+        console.log("V2 Factory feeTo is currently set to: " + resultFeeTo);
     })
     var feeToSetter = uniswapFactoryContract.methods.feeToSetter().call()
         feeToSetter.then(function(resultFeeToSetter) {
-        console.log("feeToSetter is currently set to: " + resultFeeToSetter);
+        console.log("v2 Factory feeToSetter is currently set to: " + resultFeeToSetter);
     })
+
+// WETH
+    var uniswapWETHAbi = data_object.abi.weth;
+    var uniswapWethContract = new web3.eth.Contract(uniswapWETHAbi, "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2");
+    console.log("Checking feeTo ...");
+    var feeTo = uniswapWethContract.methods.totalSupply().call()
+        feeTo.then(function(resultTotalSupply) {
+        console.log("WETH totalSupply is set to: " + resultTotalSupply);
+    })
+
+
+// end await
 })();
