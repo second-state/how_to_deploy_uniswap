@@ -23,12 +23,14 @@ v2_mainnet_factory_address = "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f"
 v2_mainnet_router_address = "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D"
 v2_mainnet_multicall_address = "0xeefBa1e63905eF1D7ACbA5a8513c70307C1cE441"
 v2_mainnet_migrator_address = "0x16D4F26C15f3658ec65B1126ff27DD3dF2a2996b"
+v2_mainnet_weth_address = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
 
 # Factory
 sed_command_v1_fac = 's/' + v1_mainnet_factory_address + '/' + json_data["contract_address"]["uniswap_factory"] + '/g'
 sed_command_v2_fac = 's/' + v2_mainnet_factory_address + '/' + json_data["contract_address"]["uniswap_v2"] + '/g'
 sed_command_v2_rou = 's/' + v2_mainnet_router_address + '/' + json_data["contract_address"]["router"] + '/g'
 sed_command_v2_mul = 's/' + v2_mainnet_multicall_address + '/' + json_data["contract_address"]["multicall"] + '/g'
+sed_command_v2_wet = 's/' + v2_mainnet_weth_address + '/' + json_data["contract_address"]["weth"] + '/g'
 
 # # Update files
 dirs_to_process = ['../../src/', '../../build/']
@@ -40,3 +42,4 @@ for individual_dir in dirs_to_process:
             subprocess.call(['sed', '-ir', sed_command_v2_fac, os.path.join(root, name)])
             subprocess.call(['sed', '-ir', sed_command_v2_rou, os.path.join(root, name)])
             subprocess.call(['sed', '-ir', sed_command_v2_mul, os.path.join(root, name)])
+            subprocess.call(['sed', '-ir', sed_command_v2_wet, os.path.join(root, name)])
