@@ -60,6 +60,7 @@ var URL = "";
     var uniswapWETHBytecode = data_object.bytecode.weth;
     var uniswapWETHAbi = data_object.abi.weth;
 
+/*
     // Fee to setter account controls this factory forever. Please choose your feeToSetter account carefully
     // Must be secure and preserved; this is paramount
     var _feeToSetter = accounts[2];
@@ -133,7 +134,7 @@ var URL = "";
         })
         .on('receipt', function(receipt) {
             console.log("Contract address: " + receipt.contractAddress) // contains the new contract address
-            data_object.contract_address.uniswap_weth = receipt.contractAddress;
+            data_object.contract_address.weth = receipt.contractAddress;
             let data_to_write = JSON.stringify(data_object, null, 2);
             write_data(data_to_write);
         })
@@ -164,7 +165,7 @@ var URL = "";
     let uniswapROUTER2Instance = new web3.eth.Contract(uniswapRouterAbi, uniswapROUTER2.contractAddress);
     uniswapROUTER2Instance.deploy({
             data: uniswapRouterBytecode,
-            arguments: [data_object.contract_address.uniswap_v2 , data_object.contract_address.uniswap_weth]
+            arguments: [data_object.contract_address.uniswap_v2 , data_object.contract_address.weth]
         })
         .send({
             from: accounts[2],
@@ -232,7 +233,7 @@ var URL = "";
         .then(function(newContractInstance) {
             console.log(newContractInstance.options.address) // instance with the new contract address
         });
-
+*/
     // Uniswap V2 Migrator
     // V2 Migrator Deployment
     console.log("Deploying Migrator now, please wait ...");
