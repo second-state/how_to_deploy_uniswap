@@ -60,7 +60,6 @@ var URL = "";
     var uniswapWETHBytecode = data_object.bytecode.weth;
     var uniswapWETHAbi = data_object.abi.weth;
 
-
     // Fee to setter account controls this factory forever. Please choose your feeToSetter account carefully
     // Must be secure and preserved; this is paramount
     var _feeToSetter = accounts[2];
@@ -153,21 +152,124 @@ var URL = "";
                 console.log("Total Supply set to: " + resultTotalSupply);
             })
         });
-    /*
-        // V2 Multicall Deployment
-        console.log("Deploying multicall now, please wait ...");
-        let multicall;
-        multicall = await web3.eth.sendTransaction({
-            from: accounts[2],
-            data: uniswapMulticallBytecode
-        }); // Charlie accounts[2] is the owner
-        let uniswapMulticallInstance = new web3.eth.Contract(uniswapMulticallAbi, multicall.contractAddress);
-        console.log(`\nUniswap V2 deployed at ${multicall.contractAddress}`);
-        console.log(`\n${multicall}`);
-        console.log(`\n${uniswapMulticallInstance}`);
-        console.log(`Please store these details for future use ^^^\n`);
-        data_object.contract_address.multicall = multicall.contractAddress;
 
+    // Uniswap V2 ROUTER2
+    // V2 ROUTER2 Deployment
+    console.log("Deploying ROUTER2 now, please wait ...");
+    let uniswapROUTER2;
+    uniswapROUTER2 = await web3.eth.sendTransaction({
+        from: accounts[2],
+        data: uniswapRouterBytecode
+    }); // Charlie accounts[2] is the owner
+    let uniswapROUTER2Instance = new web3.eth.Contract(uniswapRouterAbi, uniswapROUTER2.contractAddress);
+    uniswapROUTER2Instance.deploy({
+            data: uniswapRouterBytecode,
+            arguments: [data_object.contract_address.uniswap_v2 , data_object.contract_address.uniswap_weth]
+        })
+        .send({
+            from: accounts[2],
+            gas: 4700000,
+            gasPrice: '30000000000'
+        }, function(error, transactionHash) {
+            console.log(transactionHash);
+        })
+        .on('error', function(error) {
+            console.log(error);
+        })
+        .on('transactionHash', function(transactionHash) {
+            console.log("Transaction hash: " + transactionHash);
+        })
+        .on('receipt', function(receipt) {
+            console.log("Contract address: " + receipt.contractAddress) // contains the new contract address
+            data_object.contract_address.router = receipt.contractAddress;
+            let data_to_write = JSON.stringify(data_object, null, 2);
+            write_data(data_to_write);
+        })
+        .then(function(newContractInstance) {
+            console.log(newContractInstance.options.address) // instance with the new contract address
+            var factoryVar = newContractInstance.methods.factory().call()
+            factoryVar.then(function(resultFactory) {
+                console.log("Router2's factory set to: " + resultFactory);
+            })
+            var wethVar = newContractInstance.methods.WETH().call()
+            wethVar.then(function(resultWeth) {
+                console.log("Router2's WETH set to: " + resultWeth);
+            })
+        });
+
+
+    // Uniswap V2 Multicall
+    // V2 Multicall Deployment
+    console.log("Deploying Multicall now, please wait ...");
+    let uniswapMulticall;
+    uniswapMulticall = await web3.eth.sendTransaction({
+        from: accounts[2],
+        data: uniswapMulticallBytecode
+    }); // Charlie accounts[2] is the owner
+    let uniswapMulticallInstance = new web3.eth.Contract(uniswapMulticallAbi, uniswapMulticall.contractAddress);
+    uniswapMulticallInstance.deploy({
+            data: uniswapMulticallBytecode
+        })
+        .send({
+            from: accounts[2],
+            gas: 4700000,
+            gasPrice: '30000000000'
+        }, function(error, transactionHash) {
+            console.log(transactionHash);
+        })
+        .on('error', function(error) {
+            console.log(error);
+        })
+        .on('transactionHash', function(transactionHash) {
+            console.log("Transaction hash: " + transactionHash);
+        })
+        .on('receipt', function(receipt) {
+            console.log("Contract address: " + receipt.contractAddress) // contains the new contract address
+            data_object.contract_address.multicall = receipt.contractAddress;
+            let data_to_write = JSON.stringify(data_object, null, 2);
+            write_data(data_to_write);
+        })
+        .then(function(newContractInstance) {
+            console.log(newContractInstance.options.address) // instance with the new contract address
+        });
+
+    // Uniswap V2 Migrator
+    // V2 Migrator Deployment
+    console.log("Deploying Migrator now, please wait ...");
+    let uniswapMigrator;
+    uniswapMigrator = await web3.eth.sendTransaction({
+        from: accounts[2],
+        data: uniswapMigratorBytecode
+    }); // Charlie accounts[2] is the owner
+    let uniswapMigratorInstance = new web3.eth.Contract(uniswapMigratorAbi, uniswapMigrator.contractAddress);
+    uniswapMigratorInstance.deploy({
+            data: uniswapMigratorBytecode,
+            arguments: [data_object.contract_address.uniswap_factory, data_object.contract_address.router]
+        })
+        .send({
+            from: accounts[2],
+            gas: 4700000,
+            gasPrice: '30000000000'
+        }, function(error, transactionHash) {
+            console.log(transactionHash);
+        })
+        .on('error', function(error) {
+            console.log(error);
+        })
+        .on('transactionHash', function(transactionHash) {
+            console.log("Transaction hash: " + transactionHash);
+        })
+        .on('receipt', function(receipt) {
+            console.log("Contract address: " + receipt.contractAddress) // contains the new contract address
+            data_object.contract_address.migrator = receipt.contractAddress;
+            let data_to_write = JSON.stringify(data_object, null, 2);
+            write_data(data_to_write);
+        })
+        .then(function(newContractInstance) {
+            console.log(newContractInstance.options.address) // instance with the new contract address
+        });
+
+/*
         // V2 Migrator Deployment
         console.log("Deploying migrator now, please wait ...");
         let migrator;
@@ -181,22 +283,6 @@ var URL = "";
         console.log(`\n${uniswapMigratorInstance}`);
         console.log(`Please store these details for future use ^^^\n`);
         data_object.contract_address.migrator = migrator.contractAddress;
-
-        // V2 Router Deployment
-        // constructor(address _factory, address _WETH)
-        console.log("Deploying router now, please wait ...");
-        let router;
-        router = await web3.eth.sendTransaction({
-            from: accounts[2],
-            data: uniswapRouterBytecode
-        }); // Charlie accounts[2] is the owner
-        let uniswapRouterInstance = new web3.eth.Contract(uniswapRouterAbi, router.contractAddress);
-        console.log(`\nUniswap V2 deployed at ${router.contractAddress}`);
-        console.log(`\n${router}`);
-        console.log(`\n${uniswapRouterInstance}`);
-        console.log(`Please store these details for future use ^^^\n`);
-        data_object.contract_address.router = router.contractAddress;
-
 
         // V2 ENS registry Deployment
         console.log("Deploying ENS registry now, please wait ...");
