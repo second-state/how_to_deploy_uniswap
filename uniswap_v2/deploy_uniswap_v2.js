@@ -60,7 +60,6 @@ var URL = "";
     var uniswapWETHBytecode = data_object.bytecode.weth;
     var uniswapWETHAbi = data_object.abi.weth;
 
-/*
     // Fee to setter account controls this factory forever. Please choose your feeToSetter account carefully
     // Must be secure and preserved; this is paramount
     var _feeToSetter = accounts[2];
@@ -233,7 +232,7 @@ var URL = "";
         .then(function(newContractInstance) {
             console.log(newContractInstance.options.address) // instance with the new contract address
         });
-*/
+
     // Uniswap V2 Migrator
     // V2 Migrator Deployment
     console.log("Deploying Migrator now, please wait ...");
@@ -270,37 +269,43 @@ var URL = "";
             console.log(newContractInstance.options.address) // instance with the new contract address
         });
 
+
+    // V2 ENS registry Deployment
+    console.log("Deploying ENS registry now, please wait ...");
+    let ensRegistry;
+    ensRegistry = await web3.eth.sendTransaction({
+        from: accounts[2],
+        data: uniswapEnsRegistryBytecode
+    }); // Charlie accounts[2] is the owner
+    let uniswapEnsRegistryInstance = new web3.eth.Contract(uniswapEnsRegistryAbi, ensRegistry.contractAddress);
+    uniswapEnsRegistryInstance.deploy({
+            data: uniswapEnsRegistryBytecode,
+            arguments: [accounts[2]]
+        })
+        .send({
+            from: accounts[2],
+            gas: 4700000,
+            gasPrice: '30000000000'
+        }, function(error, transactionHash) {
+            console.log(transactionHash);
+        })
+        .on('error', function(error) {
+            console.log(error);
+        })
+        .on('transactionHash', function(transactionHash) {
+            console.log("Transaction hash: " + transactionHash);
+        })
+        .on('receipt', function(receipt) {
+            console.log("Contract address: " + receipt.contractAddress) // contains the new contract address
+            data_object.contract_address.ens_registry = receipt.contractAddress;
+            let data_to_write = JSON.stringify(data_object, null, 2);
+            write_data(data_to_write);
+        })
+        .then(function(newContractInstance) {
+            console.log(newContractInstance.options.address) // instance with the new contract address
+        });
+
 /*
-        // V2 Migrator Deployment
-        console.log("Deploying migrator now, please wait ...");
-        let migrator;
-        migrator = await web3.eth.sendTransaction({
-            from: accounts[2],
-            data: uniswapMigratorBytecode
-        }); // Charlie accounts[2] is the owner
-        let uniswapMigratorInstance = new web3.eth.Contract(uniswapMigratorAbi, migrator.contractAddress);
-        console.log(`\nUniswap V2 deployed at ${migrator.contractAddress}`);
-        console.log(`\n${migrator}`);
-        console.log(`\n${uniswapMigratorInstance}`);
-        console.log(`Please store these details for future use ^^^\n`);
-        data_object.contract_address.migrator = migrator.contractAddress;
-
-        // V2 ENS registry Deployment
-        console.log("Deploying ENS registry now, please wait ...");
-        let ens_registry;
-        ens_registry = await web3.eth.sendTransaction({
-            from: accounts[2],
-            data: uniswapEnsRegistryBytecode
-        }); // Charlie accounts[2] is the owner
-        let uniswapEnsRegistryInstance = new web3.eth.Contract(uniswapEnsRegistryAbi, ens_registry.contractAddress);
-        console.log(`\nUniswap V2 deployed at ${ens_registry.contractAddress}`);
-        console.log(`\n${ens_registry}`);
-        console.log(`\n${uniswapEnsRegistryInstance}`);
-        console.log(`Please store these details for future use ^^^\n`);
-        data_object.contract_address.ens_registry = ens_registry.contractAddress;
-        let data_to_write = JSON.stringify(data_object, null, 2);
-        await write_data(data_to_write);
-
         // V2 Unisocks Deployment
         console.log("Deploying Unisocks now, please wait ...");
         let unisocks;
@@ -317,7 +322,7 @@ var URL = "";
         let data_to_write = JSON.stringify(data_object, null, 2);
         await write_data(data_to_write);
 
-    */
+*/
     let data_to_write = JSON.stringify(data_object, null, 2);
     await write_data(data_to_write);
     await provider.engine.stop();
