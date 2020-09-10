@@ -1,3 +1,5 @@
+//** Please note this is a draft and this code is under heavy development. Not to be used in production **
+
 # How to deploy Uniswap
 
 ### How to deploy Uniswap V1
