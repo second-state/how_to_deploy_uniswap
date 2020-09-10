@@ -175,16 +175,17 @@ https://unpkg.com/@uniswap/v2-core@1.0.1/build/UniswapV2Factory.json
 Contract addresses in use on Oasis demo
 
 ```
-    "uniswap_factory": "0xeE127eE65a6C65E4399b455B72Da9C415a2bDD64",
-    "uniswap_exchange_template": "0x571275cB3a0381d503F323372beC15b0D495cf00",
-    "alice_exchange": "0xb0A10012784678fB1275a22e7B0A5A13EF5a729d",
-    "bob_exchange": "0x5BcE3F59Ee9713671ebd9950E7812495a32F8612",
-    "alice_erc20_token": "0x5077026AC93F00a68C1E7d3e5962CE73609fB496",
-    "bob_erc20_token": "0x3fbB07Bd58DEE4DfbB2D99540106869409F85aA1",
-    "uniswap_v2": "0x84D9BE87b13811BF4ad79E92DEe2460f3213437E",
-    "multicall": "0xa63FEfe5f5D26003f4EBE1521f6BAfE9A19cF5A9",    
-    "migrator": "0x9770f7EbBA356E86CD40d45A85653fE4Ed4865A5",
-    "router": "0x4224d915F29b8a27c29847962025D70180a72C94",
-    "ens_registry": "0xd31cd822EFF0E9bC664Ab16ee67F26eB09B46537",    
-    "unisocks": "0x174ab7360394aB91B73Ff4CA77f011119960C441"
+"uniswap_factory": "0x30902E942a4b908Abb36dB4b2FA15BB120Ec14Ac",
+    "weth": "0x9F4fD40aC132bAc35a0cacBB60Dd3d46C3281ed9",
+    "uniswap_exchange_template": "0x81fD58bD093DDbc4cbEB2f730834c208776b32C1",
+    "alice_exchange": "0x1B7396cF2710BC65410299CeE2A2D1113DeDaa11",
+    "bob_exchange": "0xB0F2D86db0DF00Bf1FE173dD06EBcA5DCb76aF2f",
+    "alice_erc20_token": "0x9Fdf98Ee1b5A2Bd8932a8F8c1f0CF51ac294e583",
+    "bob_erc20_token": "0x7b5B7E4095D533b25248667213E6c84289D115bf",
+    "uniswap_v2": "0x713fA50D1533DA0922B5381f5dd9eFb88f59dc31",
+    "multicall": "0x675BB47BF34C209e3Eb8B82ABd39dB2623A5E8fD",
+    "migrator": "0x528adF9F52e3a3Baf7906e53618787702Ad6Aa4B",
+    "router": "0x81c62c801f222bC7433AA449C3F891cead41B0e8",
+    "ens_registry": "0xDC59c61281A6c16ebb4854b0c6599567830fda19",
+    "unisocks": ""
 ```
