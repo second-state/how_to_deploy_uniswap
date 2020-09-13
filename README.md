@@ -166,7 +166,7 @@ In that same file, also change the `1` to your chainId in line 14 i.e.
 ```
 export const NETWORK_CHAIN_ID: number = parseInt(process.env.REACT_APP_CHAIN_ID ?? '1')
 ```
-Anywhere else in that file where you see `//mainnet only` be sure to change the static `1`s to your chainId instead.
+Optional: Anywhere else in that file where you see `//mainnet only` be sure to change the static `1`s to your chainId instead.
 
 ---
 
