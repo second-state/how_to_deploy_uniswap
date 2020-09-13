@@ -134,7 +134,14 @@ Build the application's dependencies using the following command.
 ```
 npm install
 ```
-**Please note:** the chainId for each network is actuall set [inside the Uniswap SDK's code](https://github.com/Uniswap/uniswap-sdk/blob/v2/src/constants.ts#L7)
+
+
+---
+
+### Chain id changes (optional)
+
+**ChainID**
+Please note: the chainId for each network is actuall set [inside the Uniswap SDK's code](https://github.com/Uniswap/uniswap-sdk/blob/v2/src/constants.ts#L7)
 You may not need/want to change this enum. But if you do, let's take a look at how to update the MAINNET's chainId in the Uniswap Interface.
 The following grep command will find where this ChainId enum is set.
 ```
@@ -148,7 +155,22 @@ For example, the following is returned.
 ```
 You can go ahead and update these files i.e. change `MAINNET = 1` to `MAINNET = 2` if required.
 
-Now we can build the Uniswap Interface application
+In addition to the above change, another file in the Uniswap Interface source code specifies `supportedChainIds`. If your chainId is not in the list then add it like this `vi src/connectors/index.ts`
+
+```
+export const injected = new InjectedConnector({
+  supportedChainIds: [1, 2, 3, 4, 5, 42]
+})
+```
+In that same file, also change the `1` to your chainId in line 14 i.e.
+```
+export const NETWORK_CHAIN_ID: number = parseInt(process.env.REACT_APP_CHAIN_ID ?? '1')
+```
+Anywhere else in that file where you see `//mainnet only` be sure to change the static `1`s to your chainId instead.
+
+---
+
+Hopefully you did not have to change the `chainId`. If you are all set then go ahead and build the Uniswap Interface application
 ```
 npm run build
 ```
