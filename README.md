@@ -96,7 +96,23 @@ The `feeToSetter` has been hard-coded to the `Charlie` account inside the `deplo
 ```
 node deploy_uniswap_v2.js
 ```
-Congratulations, the smart contracts are all deployed.
+Congratulations, the smart contracts are all deployed. You will see that all of the contract addresses in the `installation_data.json` file have been filled out.
+```
+"contract_address": {
+	"uniswap_factory": "0x2DF5e651be537bB564005340EA5D8f6fA763b530",
+	"weth": "0x043c7D26e381CB1bb025b4CE0A6E0C63D7767866",
+	"uniswap_exchange_template": "0x68Fc886B0ca3D65AE8Ad21Fde01d8C4E2AD9d86c",
+	"alice_exchange": "0x4A8f21726434951f5C1baA0F067d50fdA2a297e2",
+	"bob_exchange": "0x61d82A90455EC7cDEdF7cF7F5267c0aF6657c626",
+	"alice_erc20_token": "0x240Fc9370709bad1F4402186701C76e36a20848b",
+	"bob_erc20_token": "0x09cB0AE6dddF68Aaad81b8f6B83c30dfdaA65b48",
+	"uniswap_v2": "0x0fA47ae2b7Dee29571678580BBe9A8A88436E393",
+	"multicall": "0x50F0463B01119Aa954ce40a7f21ecf4573E7605a",
+	"migrator": "0x3cBe562Fd434aF61601937895000A91D014a49e7",
+	"router": "0x5c192a0155D504772F3bc2689aF69116E098ECAa",
+	"ens_registry": "0xA07e2676495eEDEdb5A50b9ba020Ba3A98f87D4E"
+}
+```
 
 Now change into the `uniswap_interface` directory.
 ```
