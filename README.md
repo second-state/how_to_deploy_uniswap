@@ -166,11 +166,16 @@ In that same file, also change the `1` to your chainId in line 14 i.e.
 ```
 export const NETWORK_CHAIN_ID: number = parseInt(process.env.REACT_APP_CHAIN_ID ?? '1')
 ```
-Optional: Anywhere else in that file where you see `//mainnet only` be sure to change the static `1`s to your chainId instead.
+
+Hopefully you did not have to change the `chainId`. If you are all set then go ahead and build the Uniswap Interface application
 
 ---
 
-Hopefully you did not have to change the `chainId`. If you are all set then go ahead and build the Uniswap Interface application
+### Environment variables
+
+Open the `.env` and `.env.production` files and update the `REACT_APP_CHAIN_ID` and the `REACT_APP_NETWORK_URL` to suite your needs.
+
+### Build
 ```
 npm run build
 ```

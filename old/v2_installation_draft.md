@@ -26,7 +26,7 @@ Ensure that the network id is listed in the `index.ts` file located at `src/conn
 
 ```
 export const injected = new InjectedConnector({
-  supportedChainIds: [1, 2, 3, 4, 5, 42]
+  supportedChainIds: [2, 3, 4, 5, 42]
 })
 
 ```
