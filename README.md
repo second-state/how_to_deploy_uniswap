@@ -259,6 +259,11 @@ cd ../../ && sudo cp -rp build/* /var/www/html/ && sudo /etc/init.d/apache2 rest
 
 # More
 
+If code changes are made in the source files (i.e. a console.log statement etc.), the following command is a one-stop-shop for a restart
+```
+npm run build && cd how_to_deploy_uniswap/uniswap_interface/ && python3 modify_addresses.py && cd ../../ && sudo cp -rp build/* /var/www/html/ && sudo /etc/init.d/apache2 restart
+```
+
 **v1**
 For official information, please see the [official documentation of Uniswap V1](https://uniswap.org/docs/v1/)
 
