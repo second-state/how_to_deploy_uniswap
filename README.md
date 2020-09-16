@@ -12,6 +12,10 @@ npm install fs
 npm install web3
 npm install truffle-hdwallet-provider
 sudo apt-get install apache2
+# install Yarn
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt update && sudo apt install yarn
 ```
 
 Update version of node
