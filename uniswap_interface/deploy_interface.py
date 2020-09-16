@@ -36,7 +36,7 @@ sed_command_v2_wet = 's/' + v2_mainnet_weth_address + '/' + json_data["contract_
 sed_command_v2_reg = 's/' + v2_mainnet_registry_address + '/' + json_data["contract_address"]["ens_registry"] + '/g'
 
 # # Update files
-dirs_to_process = ['../../src/', '../../build/']
+dirs_to_process = ['../../src/', '../../build/', '../../node_modules']
 for individual_dir in dirs_to_process:
     for (root, dirs, files) in os.walk(individual_dir):
         for name in files:

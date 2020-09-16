@@ -4,9 +4,18 @@ const Web3 = require("web3");
 const URL = 'http://oasis-ssvm-amber.secondstate.io:8545';
 const web3 = new Web3(new Web3.providers.HttpProvider(URL));
 
-function get_data(_message) {
+function get_data() {
     return new Promise(function(resolve, reject) {
         fs.readFile('../installation_data.json', (err, data) => {
+            if (err) throw err;
+            resolve(data);
+        });
+    });
+}
+
+function get_official_weth_abi() {
+    return new Promise(function(resolve, reject) {
+        fs.readFile('../../src/constants/abis/weth.json', (err, data) => {
             if (err) throw err;
             resolve(data);
         });
@@ -16,6 +25,9 @@ function get_data(_message) {
 (async () => {
     await web3.eth.net.isListening();
     console.log('Web3 is connected.');
+
+    var official_weth_abi = await get_official_weth_abi();
+    var official_weth_abi_obj = JSON.parse(official_weth_abi);
 
     var data = await get_data();
     var data_object = JSON.parse(data);
@@ -54,7 +66,7 @@ function get_data(_message) {
     })
 
 // WETH
-    var uniswapWethContract = new web3.eth.Contract(data_object.abi.weth, data_object.contract_address.weth);
+    var uniswapWethContract = new web3.eth.Contract(official_weth_abi_obj, data_object.contract_address.weth);
     var feeTo = uniswapWethContract.methods.totalSupply().call()
         feeTo.then(function(resultTotalSupply) {
         console.log("WETH totalSupply is set to: " + resultTotalSupply);

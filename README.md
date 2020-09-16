@@ -9,6 +9,7 @@ sudo apt-get update
 sudo apt-get -y upgrade
 sudo apt-get install npm
 npm install fs
+npm install web3
 npm install truffle-hdwallet-provider
 ```
 
@@ -153,7 +154,46 @@ For example, the following is returned.
 ./node_modules/@uniswap/sdk/dist/sdk.esm.js.map
 ./node_modules/@uniswap/sdk/dist/sdk.cjs.production.min.js.map
 ```
-You can go ahead and update these files i.e. change `MAINNET = 1` to `MAINNET = 2` if required.
+You can go ahead and update these files i.e. change `MAINNET = 1` to `MAINNET = 2` if/as required.
+
+Please also go ahead and update the chainId in the following file `vi ./node_modules/@uniswap/sdk/dist/constants.d.ts`. Specifically, set the `MAINNET` part of this enum to whatever you need to (in our case changing `MAINNET = 1` to `MAINNET = 2`)
+```
+export enum ChainId {
+  MAINNET = 1,
+  ROPSTEN = 3,
+  RINKEBY = 4,
+  GÖRLI = 5,
+  KOVAN = 42
+}
+```
+
+In addition to the above change, if your chainId is not standard i.e. your mainnet is not `1`, then you must also modify the `export declare const WETH` section of the `node_modules/@uniswap/sdk/dist/entities/token.d.ts` file. The first position in this enum `1: Token;` represents the MAINNET so go ahead and change it to suit your needs. In our case `1: Token;`
+
+```
+export declare const WETH: {
+    1: Token;
+    3: Token;
+    4: Token;
+    5: Token;
+    42: Token;
+};
+
+```
+In addition to the above change, again if your chainId is not standard then go ahead and also update the `src/utils/index.ts` file in the following two places i.e. `1: '',` and `ETHERSCAN_PREFIXES[1]`
+
+```
+const ETHERSCAN_PREFIXES: { [chainId in ChainId]: string } = {
+  1: '',
+  3: 'ropsten.',
+  4: 'rinkeby.',
+  5: 'goerli.',
+  42: 'kovan.'
+}
+```
+
+```
+const prefix = `https://${ETHERSCAN_PREFIXES[chainId] || ETHERSCAN_PREFIXES[1]}etherscan.io`
+```
 
 In addition to the above change, another file in the Uniswap Interface source code specifies `supportedChainIds`. If your chainId is not in the list then add it like this `vi src/connectors/index.ts`
 
@@ -195,13 +235,11 @@ This will generate a new `build` directory as well as some new files, as shown b
 ```
 You will remember that we just ran the `deploy_interface.py` script. We are now going to run that **again** (but this time, over the build folder, which the above build command just created). This is just to make sure that there are no addresses which relate to the original Uniswap source code (but rather our newly created contract addresses).
 ```
-cd how_to_deploy_uniswap/uniswap_interface/
-python3 deploy_interface.py '../../build/'
+cd how_to_deploy_uniswap/uniswap_interface/ && python3 deploy_interface.py '../../build/'
 ```
 Now, we return to the Uniswap directory to copy the modified `build` files over to our Apache2 server, where they will be deployed for the end users.
 ```
-cd ../../
-cp -rp build/* /var/www/html/
+cd ../../ && cp -rp build/* /var/www/html/ && sudo /etc/init.d/apache2 restart
 ```
 ![Uniswap](./images/toggle.png)
 
