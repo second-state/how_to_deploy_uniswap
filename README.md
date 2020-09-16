@@ -11,6 +11,7 @@ sudo apt-get install npm
 npm install fs
 npm install web3
 npm install truffle-hdwallet-provider
+sudo apt-get install apache2
 ```
 
 Update version of node
