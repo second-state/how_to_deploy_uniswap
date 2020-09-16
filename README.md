@@ -252,7 +252,7 @@ cd how_to_deploy_uniswap/uniswap_interface/ && python3 modify_addresses.py
 ```
 Now, we return to the Uniswap directory to copy the modified `build` files over to our Apache2 server, where they will be deployed for the end users.
 ```
-cd ../../ && cp -rp build/* /var/www/html/ && sudo /etc/init.d/apache2 restart
+cd ../../ && sudo cp -rp build/* /var/www/html/ && sudo /etc/init.d/apache2 restart
 ```
 ![Uniswap](./images/toggle.png)
 
