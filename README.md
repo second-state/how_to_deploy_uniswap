@@ -119,9 +119,9 @@ Now change into the `uniswap_interface` directory.
 ```
 cd ../uniswap_interface
 ```
-Now run the `deploy_interface.py` script and pass in the argument `../../src` like this.
+Now run the `modify_addresses.py` script and pass in the argument `../../src` like this.
 ```
-python3 deploy_interface.py '../../src/'
+python3 modify_addresses.py '../../src/'
 ```
 Change back to the Uniswap directory so we can build the application.
 ```
@@ -216,6 +216,12 @@ Hopefully you did not have to change the `chainId`. If you are all set then go a
 Open the `.env` and `.env.production` files and update the `REACT_APP_CHAIN_ID` and the `REACT_APP_NETWORK_URL` to suite your needs.
 
 ### Build
+
+Modify any addresses which are lurking in dependencies etc.
+```
+cd how_to_deploy_uniswap/uniswap_interface/ && python3 modify_addresses.py
+cd ../../
+```
 ```
 npm run build
 ```
@@ -233,9 +239,9 @@ This will generate a new `build` directory as well as some new files, as shown b
   165 B      build/static/js/8.81f9e545.chunk.js
   164 B      build/static/js/7.494e051e.chunk.js
 ```
-You will remember that we just ran the `deploy_interface.py` script. We are now going to run that **again** (but this time, over the build folder, which the above build command just created). This is just to make sure that there are no addresses which relate to the original Uniswap source code (but rather our newly created contract addresses).
+You will remember that we just ran the `modify_addresses.py` script. We are now going to run that **again** (but this time, over the build folder, which the above build command just created). This is just to make sure that there are no addresses which relate to the original Uniswap source code (but rather our newly created contract addresses).
 ```
-cd how_to_deploy_uniswap/uniswap_interface/ && python3 deploy_interface.py '../../build/'
+cd how_to_deploy_uniswap/uniswap_interface/ && python3 modify_addresses.py
 ```
 Now, we return to the Uniswap directory to copy the modified `build` files over to our Apache2 server, where they will be deployed for the end users.
 ```
