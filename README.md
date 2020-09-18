@@ -265,6 +265,11 @@ new_rpc = "http\:\/\/oasis-ssvm-demo\.secondstate\.io\:8545"
 
 **Be sure to escape** `/` and `.` and `:` (as shown above) **because these will break the command when executed**.
 
+Now run this script
+```
+python3.6 change_rpc.py
+```
+
 ### Build
 
 Modify any addresses which are lurking in dependencies etc.
@@ -292,6 +297,15 @@ This will generate a new `build` directory as well as some new files, as shown b
 You will remember that we just ran the `modify_addresses.py` script. We are now going to run that **again** (but this time, over the build folder, which the above build command just created). This is just to make sure that there are no addresses which relate to the original Uniswap source code (but rather our newly created contract addresses).
 ```
 cd how_to_deploy_uniswap/uniswap_interface/ && python3 modify_addresses.py
+```
+If you are modifying the chainId (if you did the work above), please run this again.
+**WARNING** only run this if you are using a different chainId**!**
+```
+python3.6 change_chain_id.py
+```
+Now run the `change_rpc.py` again also.
+```
+python3.6 change_rpc.py
 ```
 Now, we return to the Uniswap directory to copy the modified `build` files over to our Apache2 server, where they will be deployed for the end users.
 ```
