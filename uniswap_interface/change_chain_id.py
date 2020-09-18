@@ -2,8 +2,13 @@ import os
 import subprocess
 
 one_to_two = "MAINNET = 1"
-sed_command_v2_12 = 's/' + one_to_two + '/' + "MAINNET = 2" + '/g'
+one_to_two_II = "chainId\:\"1\""
 
+new_value = "MAINNET = 2"
+new_value_II = "chainId\:\"2\""
+
+sed_command_v2_12 = 's/' + one_to_two + '/' + new_value + '/g'
+sed_command_chain = 's/' + one_to_two_II + '/' + new_value_II + '/g'
 # # Update files
 dirs_to_process = ['../../src/', '../../build/', '../../node_modules/@uniswap/']
 for individual_dir in dirs_to_process:

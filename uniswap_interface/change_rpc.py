@@ -7,8 +7,9 @@ raw_data = f.read()
 json_data = json.loads(raw_data)
 
 infura = "https\:\/\/mainnet\.infura\.io\/v3\/faa4639b090f46499f29d894da0551a0"
-oasis = "http\:\/\/oasis-ssvm-demo\.secondstate\.io\:8545"
-sed_command_i_o = 's/' + infura + '/' + oasis + '/g'
+new_rpc = "http\:\/\/oasis-ssvm-demo\.secondstate\.io\:8545"
+
+sed_command_i_o = 's/' + infura + '/' + new_rpc + '/g'
 
 # # Update files
 dirs_to_process = ['../../src/', '../../build/', '../../node_modules/@uniswap/']
