@@ -299,7 +299,8 @@ You will remember that we just ran the `modify_addresses.py` script. We are now 
 cd how_to_deploy_uniswap/uniswap_interface/ && python3 modify_addresses.py
 ```
 If you are modifying the chainId (if you did the work above), please run this again.
-**WARNING** only run this if you are using a different chainId**!**
+
+**WARNING** only run this if you are using a different chainId **!**
 ```
 python3.6 change_chain_id.py
 ```
