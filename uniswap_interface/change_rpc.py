@@ -1,4 +1,5 @@
 import os
+import json
 import subprocess
 
 f = open("../installation_data.json", "r")
@@ -16,7 +17,7 @@ for individual_dir in dirs_to_process:
         for name in files:
             print("Processing: " + os.path.join(root, name))
             subprocess.call(['sed', '-ir', sed_command_i_o, os.path.join(root, name)])
-
+# Clean up old files
 for individual_dir in dirs_to_process:
     for (root, dirs, files) in os.walk(individual_dir):
         for name in files:
