@@ -48,10 +48,16 @@ for individual_dir in dirs_to_process:
             subprocess.call(['sed', '-ir', sed_command_v2_mig, os.path.join(root, name)])
             subprocess.call(['sed', '-ir', sed_command_v2_wet, os.path.join(root, name)])
             subprocess.call(['sed', '-ir', sed_command_v2_reg, os.path.join(root, name)])
-# # Clean up r files            
+# # Clean up r files
+the_dict = {}       
 for individual_dir in dirs_to_process:
     for (root, dirs, files) in os.walk(individual_dir):
         for name in files:
+            diff_file = os.path.join(root, name) + "r"
+            temp = subprocess.call(['diff', '-c', os.path.join(root, name), diff_file])
+            the_dict[str(os.path.join(root, name))] = temp
             if name.endswith("r"):
                 print("Cleaning up old files")
                 os.remove(os.path.join(root, name))
+print("Files changed ...")
+print(the_dict)
