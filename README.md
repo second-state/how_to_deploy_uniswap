@@ -225,7 +225,37 @@ Hopefully you did not have to change the `chainId`. If you are all set then go a
 This [Unisocks contract](https://etherscan.io/address/0x65770b5283117639760beA3F867b69b3697a91dd#code), this [other Uniswap contract](https://etherscan.io/address/0x23B608675a2B2fB1890d3ABBd85c5775c51691d5) and the [hard-coded Unisocks metadata](https://cloudflare-ipfs.com/ipfs/QmNZEeAN1zk6hLoHHREVkZ7PoPYaoH7n6LR6w9QAcEc29h) are deployed against real-world assets (socks) and therefore it makes no sense to include this in the build.
 In order to disable the Unisocks component of this build we need to do the following updates to the code.
 
+#### useContract.ts
+* Comment out the `import UNISOCKS_ABI from '../constants/abis/unisocks.json'` line in the src/hooks/useContract.ts file
+
 * Comment out the `useSocksController` section of the `./src/hooks/useContract.ts` file
+```
+export function useSocksController(): Contract | null {
+  const { chainId } = useActiveWeb3React()
+  return useContract(
+    chainId === ChainId.MAINNET ? '0x65770b5283117639760beA3F867b69b3697a91dd' : undefined,
+    UNISOCKS_ABI,
+    false
+  )
+}
+
+```
+#### useSocksBalance.ts
+* `mv src/hooks/useSocksBalance.ts src/hooks/useSocksBalance.ts.orig`
+
+#### src/components/Web3Status/index.tsx
+* Comment out `import { useHasSocks } from '../../hooks/useSocksBalance'` and `const hasSocks = useHasSocks()`  which are in the `src/components/Web3Status/index.tsx` file
+* Also comment out this block of code 
+```
+const SOCK = (
+  <span role="img" aria-label="has socks emoji" style={{ marginTop: -4, marginBottom: -4 }}>
+    🧦
+  </span>
+)
+```
+from the `src/components/Web3Status/index.tsx` file
+* Also delete the `{hasSocks ? SOCK : null}` line of code which is also in the `src/components/Web3Status/index.tsx` file
+
 
 ### Environment variables
 
