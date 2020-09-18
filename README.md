@@ -254,6 +254,17 @@ from the `src/components/Web3Status/index.tsx` file
 
 Open the `.env` and `.env.production` files and update the `REACT_APP_CHAIN_ID` and the `REACT_APP_NETWORK_URL` to suite your needs.
 
+### Change the hard-coded RPC
+
+Open the `how_to_deploy_uniswap/uniswap_interface/change_rpc.py` file and edit the following variables to suite your needs.
+
+```
+infura = "https\:\/\/mainnet\.infura\.io\/v3\/faa4639b090f46499f29d894da0551a0"
+new_rpc = "http\:\/\/oasis-ssvm-demo\.secondstate\.io\:8545"
+```
+
+**Be sure to escape** `/` and `.` and `:` (as shown above) **because these will break the command when executed**.
+
 ### Build
 
 Modify any addresses which are lurking in dependencies etc.
