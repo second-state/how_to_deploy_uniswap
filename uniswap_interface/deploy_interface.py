@@ -40,7 +40,7 @@ dirs_to_process = ['../../src/', '../../build/', '../../node_modules/@uniswap/']
 for individual_dir in dirs_to_process:
     for (root, dirs, files) in os.walk(individual_dir):
         for name in files:
-            if name.endswith("r"):
+            if name.endswith("rr"):
                 print("Cleaning up old files")
                 os.remove(os.path.join(root, name))
             else:
