@@ -153,28 +153,21 @@ yarn
 
 **ChainID**
 Please note: the chainId for each network is actuall set [inside the Uniswap SDK's code](https://github.com/Uniswap/uniswap-sdk/blob/v2/src/constants.ts#L7)
-You may not need/want to change this enum. But if you do, let's take a look at how to update the MAINNET's chainId in the Uniswap Interface.
-The following grep command will find where this ChainId enum is set.
-```
-grep -Rle "export enum ChainId" .
-```
-For example, the following is returned.
-```
-./node_modules/@uniswap/sdk/dist/sdk.cjs.development.js.map
-./node_modules/@uniswap/sdk/dist/sdk.esm.js.map
-./node_modules/@uniswap/sdk/dist/sdk.cjs.production.min.js.map
-```
-You can go ahead and update these files i.e. change `MAINNET = 1` to `MAINNET = 2` if/as required.
+You may not need/want to change this but if you do i.e. you are using chainId `2` instead of `1` please perform the following tasks
 
-Please also go ahead and update the chainId in the following file `vi ./node_modules/@uniswap/sdk/dist/constants.d.ts`. Specifically, set the `MAINNET` part of this enum to whatever you need to (in our case changing `MAINNET = 1` to `MAINNET = 2`)
+Open the `how_to_deploy_uniswap/uniswap_interface/change_chain_id.py` file and edit the `one_to_two` and `one_to_two_II` and `new_value` and `new_value_II` variables to suite your situation i.e. changing from chainId `1` to `2` would look like this.
 ```
-export enum ChainId {
-  MAINNET = 1,
-  ROPSTEN = 3,
-  RINKEBY = 4,
-  GÖRLI = 5,
-  KOVAN = 42
-}
+one_to_two = "MAINNET = 1"
+one_to_two_II = "chainId\:\"1\""
+
+new_value = "MAINNET = 2"
+new_value_II = "chainId\:\"2\""
+```
+Be sure to escape `/` and `.` and `:` (as shown above) because these will break the command when executed.
+
+Now run this file
+```
+python3.6 change_chain_id.py
 ```
 
 In addition to the above change, if your chainId is not standard i.e. your mainnet is not `1`, then you must also modify the `export declare const WETH` section of the `node_modules/@uniswap/sdk/dist/entities/token.d.ts` file. The first position in this enum `1: Token;` represents the MAINNET so go ahead and change it to suit your needs. In our case `1: Token;`
