@@ -153,28 +153,21 @@ yarn
 
 **ChainID**
 Please note: the chainId for each network is actuall set [inside the Uniswap SDK's code](https://github.com/Uniswap/uniswap-sdk/blob/v2/src/constants.ts#L7)
-You may not need/want to change this enum. But if you do, let's take a look at how to update the MAINNET's chainId in the Uniswap Interface.
-The following grep command will find where this ChainId enum is set.
-```
-grep -Rle "export enum ChainId" .
-```
-For example, the following is returned.
-```
-./node_modules/@uniswap/sdk/dist/sdk.cjs.development.js.map
-./node_modules/@uniswap/sdk/dist/sdk.esm.js.map
-./node_modules/@uniswap/sdk/dist/sdk.cjs.production.min.js.map
-```
-You can go ahead and update these files i.e. change `MAINNET = 1` to `MAINNET = 2` if/as required.
+You may not need/want to change this but if you do i.e. you are using chainId `2` instead of `1` please perform the following tasks
 
-Please also go ahead and update the chainId in the following file `vi ./node_modules/@uniswap/sdk/dist/constants.d.ts`. Specifically, set the `MAINNET` part of this enum to whatever you need to (in our case changing `MAINNET = 1` to `MAINNET = 2`)
+Open the `how_to_deploy_uniswap/uniswap_interface/change_chain_id.py` file and edit the `one_to_two` and `one_to_two_II` and `new_value` and `new_value_II` variables to suite your situation i.e. changing from chainId `1` to `2` would look like this.
 ```
-export enum ChainId {
-  MAINNET = 1,
-  ROPSTEN = 3,
-  RINKEBY = 4,
-  GÖRLI = 5,
-  KOVAN = 42
-}
+one_to_two = "MAINNET = 1"
+one_to_two_II = "chainId\:\"1\""
+
+new_value = "MAINNET = 2"
+new_value_II = "chainId\:\"2\""
+```
+Be sure to escape `/` and `.` and `:` (as shown above) because these will break the command when executed.
+
+Now run this file
+```
+python3.6 change_chain_id.py
 ```
 
 In addition to the above change, if your chainId is not standard i.e. your mainnet is not `1`, then you must also modify the `export declare const WETH` section of the `node_modules/@uniswap/sdk/dist/entities/token.d.ts` file. The first position in this enum `1: Token;` represents the MAINNET so go ahead and change it to suit your needs. In our case `1: Token;`
@@ -261,6 +254,22 @@ from the `src/components/Web3Status/index.tsx` file
 
 Open the `.env` and `.env.production` files and update the `REACT_APP_CHAIN_ID` and the `REACT_APP_NETWORK_URL` to suite your needs.
 
+### Change the hard-coded RPC
+
+Open the `how_to_deploy_uniswap/uniswap_interface/change_rpc.py` file and edit the following variables to suite your needs.
+
+```
+infura = "https\:\/\/mainnet\.infura\.io\/v3\/faa4639b090f46499f29d894da0551a0"
+new_rpc = "http\:\/\/oasis-ssvm-demo\.secondstate\.io\:8545"
+```
+
+**Be sure to escape** `/` and `.` and `:` (as shown above) **because these will break the command when executed**.
+
+Now run this script
+```
+python3.6 change_rpc.py
+```
+
 ### Build
 
 Modify any addresses which are lurking in dependencies etc.
@@ -289,6 +298,23 @@ You will remember that we just ran the `modify_addresses.py` script. We are now 
 ```
 cd how_to_deploy_uniswap/uniswap_interface/ && python3 modify_addresses.py
 ```
+
+Now run the `change_rpc.py` again also.
+```
+python3.6 change_rpc.py
+```
+
+---
+
+If you are modifying the chainId (if you did the work above), please run this again.
+
+**WARNING** only run this if you are using a different chainId **!**
+```
+python3.6 change_chain_id.py
+```
+
+---
+
 Now, we return to the Uniswap directory to copy the modified `build` files over to our Apache2 server, where they will be deployed for the end users.
 ```
 cd ../../ && sudo cp -rp build/* /var/www/html/ && sudo /etc/init.d/apache2 restart
