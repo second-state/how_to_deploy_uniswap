@@ -11,6 +11,17 @@ sudo apt-get install npm
 npm install fs
 npm install web3
 npm install truffle-hdwallet-provider
+sudo apt-get install apache2
+# install Yarn
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt update && sudo apt install yarn
+```
+
+Update version of node
+```
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+sudo apt-get install -y nodejs
 ```
 
 Clone the Uniswap Interface code using Git.
@@ -245,12 +256,17 @@ cd how_to_deploy_uniswap/uniswap_interface/ && python3 modify_addresses.py
 ```
 Now, we return to the Uniswap directory to copy the modified `build` files over to our Apache2 server, where they will be deployed for the end users.
 ```
-cd ../../ && cp -rp build/* /var/www/html/ && sudo /etc/init.d/apache2 restart
+cd ../../ && sudo cp -rp build/* /var/www/html/ && sudo /etc/init.d/apache2 restart
 ```
 ![Uniswap](./images/toggle.png)
 
 
 # More
+
+If code changes are made in the source files (i.e. a console.log statement etc.), the following command is a one-stop-shop for a restart
+```
+npm run build && cd how_to_deploy_uniswap/uniswap_interface/ && python3 modify_addresses.py && cd ../../ && sudo cp -rp build/* /var/www/html/ && sudo /etc/init.d/apache2 restart
+```
 
 **v1**
 For official information, please see the [official documentation of Uniswap V1](https://uniswap.org/docs/v1/)
