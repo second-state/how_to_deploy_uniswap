@@ -221,6 +221,12 @@ Hopefully you did not have to change the `chainId`. If you are all set then go a
 
 ---
 
+### Disable Unisocks (Optional)
+This [Unisocks contract](https://etherscan.io/address/0x65770b5283117639760beA3F867b69b3697a91dd#code), this [other Uniswap contract](https://etherscan.io/address/0x23B608675a2B2fB1890d3ABBd85c5775c51691d5) and the [hard-coded Unisocks metadata](https://cloudflare-ipfs.com/ipfs/QmNZEeAN1zk6hLoHHREVkZ7PoPYaoH7n6LR6w9QAcEc29h) are deployed against real-world assets (socks) and therefore it makes no sense to include this in the build.
+In order to disable the Unisocks component of this build we need to do the following updates to the code.
+
+* Comment out the `useSocksController` section of the `./src/hooks/useContract.ts` file
+
 ### Environment variables
 
 Open the `.env` and `.env.production` files and update the `REACT_APP_CHAIN_ID` and the `REACT_APP_NETWORK_URL` to suite your needs.
@@ -264,7 +270,7 @@ cd ../../ && sudo cp -rp build/* /var/www/html/ && sudo /etc/init.d/apache2 rest
 
 If code changes are made in the source files (i.e. a console.log statement etc.), the following command is a one-stop-shop for a restart
 ```
-npm run build && cd how_to_deploy_uniswap/uniswap_interface/ && python3 modify_addresses.py && cd ../../ && sudo cp -rp build/* /var/www/html/ && sudo /etc/init.d/apache2 restart
+yarn run build && cd how_to_deploy_uniswap/uniswap_interface/ && python3 modify_addresses.py && cd ../../ && sudo cp -rp build/* /var/www/html/ && sudo /etc/init.d/apache2 restart
 ```
 
 **v1**
