@@ -298,16 +298,23 @@ You will remember that we just ran the `modify_addresses.py` script. We are now 
 ```
 cd how_to_deploy_uniswap/uniswap_interface/ && python3 modify_addresses.py
 ```
+
+Now run the `change_rpc.py` again also.
+```
+python3.6 change_rpc.py
+```
+
+---
+
 If you are modifying the chainId (if you did the work above), please run this again.
 
 **WARNING** only run this if you are using a different chainId **!**
 ```
 python3.6 change_chain_id.py
 ```
-Now run the `change_rpc.py` again also.
-```
-python3.6 change_rpc.py
-```
+
+---
+
 Now, we return to the Uniswap directory to copy the modified `build` files over to our Apache2 server, where they will be deployed for the end users.
 ```
 cd ../../ && sudo cp -rp build/* /var/www/html/ && sudo /etc/init.d/apache2 restart
