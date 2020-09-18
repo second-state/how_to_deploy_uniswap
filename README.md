@@ -130,7 +130,7 @@ Now change into the `uniswap_interface` directory.
 ```
 cd ../uniswap_interface
 ```
-Now run the `modify_addresses.py` script and pass in the argument `../../src` like this.
+Now run the `modify_addresses.py` script 
 ```
 python3 modify_addresses.py '../../src/'
 ```
@@ -144,9 +144,8 @@ LICENSE  README.md  cypress  cypress.json  how_to_deploy_uniswap  node_modules  
 ```
 Build the application's dependencies using the following command.
 ```
-npm install
+yarn
 ```
-
 
 ---
 
@@ -234,7 +233,7 @@ cd how_to_deploy_uniswap/uniswap_interface/ && python3 modify_addresses.py
 cd ../../
 ```
 ```
-npm run build
+yarn run build
 ```
 This will generate a new `build` directory as well as some new files, as shown below.
 ```
