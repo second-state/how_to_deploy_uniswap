@@ -1,3 +1,12 @@
+// cd ~
+// yarn add @makerdao/multicall
+// git clone https://github.com/makerdao/multicall.js.git
+// cd multicall.js
+// vi the package.json file in the multicall.js directory
+// change the test "examples/es-example.js" to the location of this file i.e. /home/me/how_to.../uni.../test_multicall.js
+// yarn
+// yarn example 
+
 const fs = require('fs');
 import {
     createWatcher
