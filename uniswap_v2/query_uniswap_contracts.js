@@ -1,3 +1,5 @@
+// yarn add @makerdao/multicall
+
 const fs = require('fs');
 const Web3 = require("web3");
 //const URL = 'https://mainnet.infura.io/v3/0920fdea265848a9b49dd72674c088a7';
