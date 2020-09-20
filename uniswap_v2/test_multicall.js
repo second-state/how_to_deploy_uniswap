@@ -27,7 +27,7 @@ function get_data() {
         rpcUrl: data_object.provider.rpc_endpoint,
         multicallAddress: data_object.contract_address.multicall
     };
-
+    console.log("Creating watcher");
     const watcher = mc.createWatcher(
         [{
                 call: [
@@ -39,7 +39,7 @@ function get_data() {
                 ]
             },
             {
-                call: ['getBlockHash(uint256)(bytes32)', 11482494],
+                call: ['getBlockHash(uint256)(bytes32)', 150],
                 returns: [
                     ['SPECIFIC_BLOCK_HASH_0xFF4DB']
                 ]
@@ -89,6 +89,7 @@ function get_data() {
         });
 
         // Start the watcher polling
+        console.log("Starting watcher");
         watcher.start();
     });
 
