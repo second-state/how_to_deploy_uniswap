@@ -9,6 +9,7 @@
 // yarn example 
 var mc = require("@makerdao/multicall")
 const fs = require('fs');
+
 function get_data() {
     return new Promise(function(resolve, reject) {
         fs.readFile('../installation_data.json', (err, data) => {
@@ -28,7 +29,7 @@ function get_data() {
         multicallAddress: data_object.contract_address.multicall
     };
     console.log("Creating watcher");
-    const watcher = mc.createWatcher(
+    const watcher = await mc.createWatcher(
         [{
                 call: [
                     'getEthBalance(address)(uint256)',
@@ -82,15 +83,23 @@ function get_data() {
     // Subscribe to state updates
     watcher.subscribe(update => {
         console.log(`Update: ${update.type} = ${update.value}`);
-
-        // Subscribe to new block number updates
-        watcher.onNewBlock(blockNumber => {
-            console.log('New block:', blockNumber);
-        });
-
-        // Start the watcher polling
-        console.log("Starting watcher");
-        watcher.start();
     });
+
+    // Subscribe to batched state updates
+    watcher.batch().subscribe(updates => {
+    	console.log("Updates: " +  JSON.stringify(updates));
+        // Handle batched updates here
+        // Updates are returned as { type, value } objects, e.g:
+        // { type: 'BALANCE_OF_MKR_WHALE', value: 70000 }
+    });
+
+    // Subscribe to new block number updates
+    watcher.onNewBlock(blockNumber => {
+        console.log('New block:', blockNumber);
+    });
+
+    // Start the watcher polling
+    console.log("Starting watcher");
+    watcher.start();
 
 })();
