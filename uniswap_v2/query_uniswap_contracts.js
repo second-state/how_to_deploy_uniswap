@@ -1,7 +1,7 @@
 const fs = require('fs');
 const Web3 = require("web3");
 //const URL = 'https://mainnet.infura.io/v3/0920fdea265848a9b49dd72674c088a7';
-const URL = 'http://oasis-ssvm-amber.secondstate.io:8545';
+
 const web3 = new Web3(new Web3.providers.HttpProvider(URL));
 
 function get_data() {
@@ -13,24 +13,17 @@ function get_data() {
     });
 }
 
-function get_official_weth_abi() {
-    return new Promise(function(resolve, reject) {
-        fs.readFile('../../src/constants/abis/weth.json', (err, data) => {
-            if (err) throw err;
-            resolve(data);
-        });
-    });
-}
 
 (async () => {
     await web3.eth.net.isListening();
     console.log('Web3 is connected.');
 
-    var official_weth_abi = await get_official_weth_abi();
-    var official_weth_abi_obj = JSON.parse(official_weth_abi);
-
+// Read the config
     var data = await get_data();
     var data_object = JSON.parse(data);
+
+// Dynamically fetch provider
+    const URL = data_object.provider.rpc_endpoint;
 
 // uniswap_factory
     var uniswapV1Contract = new web3.eth.Contract(data_object.abi.uniswap_factory, data_object.contract_address.uniswap_factory);
@@ -66,14 +59,21 @@ function get_official_weth_abi() {
     })
 
 // WETH
-    var uniswapWethContract = new web3.eth.Contract(official_weth_abi_obj, data_object.contract_address.weth);
-    var feeTo = uniswapWethContract.methods.totalSupply().call()
-        feeTo.then(function(resultTotalSupply) {
+    var uniswapWethContract = new web3.eth.Contract(data_object.abi.weth, data_object.contract_address.weth);
+    var feeTo = uniswapWethContract.methods.name().call()
+        feeTo.then(function(resultname) {
+        console.log("WETH name is set to: " + resultname);
+    })
+    var name = uniswapWethContract.methods.totalSupply().call()
+        name.then(function(resultTotalSupply) {
         console.log("WETH totalSupply is set to: " + resultTotalSupply);
     })
-
 // Multicall
     var uniswapMilticallContract = new web3.eth.Contract(data_object.abi.multicall, data_object.contract_address.multicall);
+    var getBlockHash = uniswapMilticallContract.methods.getBlockHash(538).call()
+        getBlockHash.then(function(resultgetBlockHash) {
+        console.log("Multicall getBlockHash is set to: " + resultgetBlockHash);
+    })
     var getLastBlockHash = uniswapMilticallContract.methods.getLastBlockHash().call()
         getLastBlockHash.then(function(resultgetLastBlockHash) {
         console.log("Multicall getLastBlockHash is set to: " + resultgetLastBlockHash);

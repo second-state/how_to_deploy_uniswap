@@ -1,14 +1,8 @@
-// Install Multicall
-// yarn add eth-multicall
+const fs = require('fs');
+import {
+    createWatcher
+} from '@makerdao/multicall';
 
-// Imports
-import { MultiCall } from 'eth-multicall'
-const Web3 = require("web3");
-// RPC 
-const URL = 'http://oasis-ssvm-demo.secondstate.io:8545';
-const web3 = new Web3(new Web3.providers.HttpProvider(URL));
-
-// Live data
 function get_data() {
     return new Promise(function(resolve, reject) {
         fs.readFile('../installation_data.json', (err, data) => {
@@ -18,28 +12,78 @@ function get_data() {
     });
 }
 
-// Execute multi call 
 (async () => {
-    await web3.eth.net.isListening();
-    console.log('Web3 is connected.');
-
-
+    // Read in the configuration information
     var data = await get_data();
     var data_object = JSON.parse(data);
-	const multiCallContract = data_object.contract_address.multicall;
-	const multicall = new MultiCall(web3, multiCallContract);
+    // 
+    const config = {
+        rpcUrl: data_object.provider.rpc_endpoint,
+        multicallAddress: data_object.contract_address.multicall
+    };
 
-	 const addresses = [
-	   data_object.contract_address.alice_erc20_token,
-	   data_object.contract_address.bob_erc20_token
-	 ];
+    const watcher = createWatcher(
+        [{
+                call: [
+                    'getEthBalance(address)(uint256)',
+                    data_object.public_key.alice
+                ],
+                returns: [
+                    ['ETH_BALANCE', val => val / 10 ** 18]
+                ]
+            },
+            {
+                call: ['getBlockHash(uint256)(bytes32)', 11482494],
+                returns: [
+                    ['SPECIFIC_BLOCK_HASH_0xFF4DB']
+                ]
+            },
+            {
+                call: ['getLastBlockHash()(bytes32)'],
+                returns: [
+                    ['LAST_BLOCK_HASH']
+                ]
+            },
+            {
+                call: ['getCurrentBlockTimestamp()(uint256)'],
+                returns: [
+                    ['CURRENT_BLOCK_TIMESTAMP']
+                ]
+            },
+            {
+                call: ['getCurrentBlockDifficulty()(uint256)'],
+                returns: [
+                    ['CURRENT_BLOCK_DIFFICULTY']
+                ]
+            },
+            {
+                call: ['getCurrentBlockGasLimit()(uint256)'],
+                returns: [
+                    ['CURRENT_BLOCK_GASLIMIT']
+                ]
+            },
+            {
+                call: ['getCurrentBlockCoinbase()(address)'],
+                returns: [
+                    ['CURRENT_BLOCK_COINBASE']
+                ]
+            }
+        ],
+        config
+    );
 
-	 const tokens = addresses.map((address) => {
-	   const token = new web3.eth.Contract(data_object.abi.erc20, address);
-	   return {
-	     symbol: token.methods.symbol(),
-	     decimals: token.methods.decimals(),
-	   };
-	 });
+
+    // Subscribe to state updates
+    watcher.subscribe(update => {
+        console.log(`Update: ${update.type} = ${update.value}`);
+
+        // Subscribe to new block number updates
+        watcher.onNewBlock(blockNumber => {
+            console.log('New block:', blockNumber);
+        });
+
+        // Start the watcher polling
+        watcher.start();
+    });
 
 })();
