@@ -4,9 +4,10 @@
 // cd multicall.js
 // vi the package.json file in the multicall.js directory
 // change the test "examples/es-example.js" to the location of this file i.e. /home/me/how_to.../uni.../test_multicall.js
+// change the "../installation_data.js" value in the "fs.readFile" section and hard code the full path the the installatin_data.js file in the same fashion as above i.e. /home/me ...
 // yarn
 // yarn example 
-import { createWatcher } from '@makerdao/multicall';
+var mc = require("@makerdao/multicall")
 const fs = require('fs');
 function get_data() {
     return new Promise(function(resolve, reject) {
@@ -27,7 +28,7 @@ function get_data() {
         multicallAddress: data_object.contract_address.multicall
     };
 
-    const watcher = createWatcher(
+    const watcher = mc.createWatcher(
         [{
                 call: [
                     'getEthBalance(address)(uint256)',
