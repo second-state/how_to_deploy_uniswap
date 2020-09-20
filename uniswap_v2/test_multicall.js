@@ -6,12 +6,8 @@
 // change the test "examples/es-example.js" to the location of this file i.e. /home/me/how_to.../uni.../test_multicall.js
 // yarn
 // yarn example 
-
+import { createWatcher } from '@makerdao/multicall';
 const fs = require('fs');
-import {
-    createWatcher
-} from '@makerdao/multicall';
-
 function get_data() {
     return new Promise(function(resolve, reject) {
         fs.readFile('../installation_data.json', (err, data) => {
