@@ -2,7 +2,10 @@
 
 # How to deploy Uniswap
 
+--- 
+
 ## Housekeeping
+The code in this section is packaged up into a single `./utils/housekeeping.sh` file for your convenience. Below are the details of all of the `./utils/housekeeping.sh` commands for your understanding.
 
 ```
 sudo apt-get update
@@ -42,7 +45,13 @@ Change into the `how_to_deploy_uniswap/` directory.
 ```
 cd how_to_deploy_uniswap/
 ```
+
+--- 
+
+## Accounts
+
 Create 3 Ethereum compatible addresses using any method that you are comfortable with i.e. [web3js](https://web3js.readthedocs.io/en/v1.2.11/web3-eth-accounts.html) etc.
+
 Now paste the **private** and **public** keys of those addresses into the installation_data.json file as shown below.
 ```
 vi installation_data.json
@@ -72,6 +81,10 @@ Here is an example of the `rpc_endpoint` section of that file.
 	"rpc_endpoint": "http://rpc_url:port"
 }
 ```
+
+--- 
+
+## V1
 Now run the Uniswap V1 smart contract installer.
 ```
 cd uniswap_v1
@@ -97,6 +110,11 @@ If you open the `../installation_data.json` file, you will see that the Uniswap 
     "unisocks": ""
 }
 ```
+
+---
+
+## V2 
+
 Now run the Uniswap V2 smart contract installation script.
 ```
 cd ../uniswap_v2
@@ -125,6 +143,10 @@ Congratulations, the smart contracts are all deployed. You will see that all of 
 	"ens_registry": "0xA07e2676495eEDEdb5A50b9ba020Ba3A98f87D4E"
 }
 ```
+
+---
+
+## Interface
 
 Now change into the `uniswap_interface` directory.
 ```
