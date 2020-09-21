@@ -120,7 +120,7 @@ Now run the Uniswap V2 smart contract installation script.
 cd ~/uniswap-interface/how_to_deploy_uniswap/uniswap_v2
 ```
 
-**Important Warning**
+### Important Warning
 The `feeToSetter` has been hard-coded to the `Charlie` account inside the `deploy_uniswap_v2.js` script (that you are about to run). The `feeToSetter` is the account that is responsible for future profit that result from trades. This account is set to `Charlie` for demonstration purposes only. **If you are running this script, you are responsible for correctly setting the `feeToSetter` account up and managing its private keys.**
 
 ```
