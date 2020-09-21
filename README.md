@@ -87,7 +87,7 @@ Here is an example of the `rpc_endpoint` section of that file.
 ## V1
 Now run the Uniswap V1 smart contract installer.
 ```
-cd ~//uniswap-interface/how_to_deploy_uniswap/uniswap_v1
+cd ~/uniswap-interface/how_to_deploy_uniswap/uniswap_v1
 ```
 ```
 node deploy_uniswap_v1.js
