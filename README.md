@@ -54,7 +54,7 @@ Create 3 Ethereum compatible addresses using any method that you are comfortable
 
 Now paste the **private** and **public** keys of those addresses into the installation_data.json file as shown below.
 ```
-vi installation_data.json
+vi ~/uniswap-interface/how_to_deploy_uniswap/installation_data.json
 ```
 Here is an example of the `private_key` and `public_key` sections of that file.
 ```
@@ -73,7 +73,7 @@ You will need to fund these accounts with network tokens. So depending on your n
 
 Now place the RPC URL to your Ethereum compatible network in that same `installation_data.json` file.
 ```
-vi installation_data.json
+vi ~/uniswap-interface/how_to_deploy_uniswap/installation_data.json
 ```
 Here is an example of the `rpc_endpoint` section of that file.
 ```
@@ -87,7 +87,7 @@ Here is an example of the `rpc_endpoint` section of that file.
 ## V1
 Now run the Uniswap V1 smart contract installer.
 ```
-cd uniswap_v1
+cd ~/uniswap-interface/how_to_deploy_uniswap/uniswap_v1
 ```
 ```
 node deploy_uniswap_v1.js
@@ -117,10 +117,10 @@ If you open the `../installation_data.json` file, you will see that the Uniswap 
 
 Now run the Uniswap V2 smart contract installation script.
 ```
-cd ../uniswap_v2
+cd ~/uniswap-interface/how_to_deploy_uniswap/uniswap_v2
 ```
 
-**Important Warning**
+### Important Warning
 The `feeToSetter` has been hard-coded to the `Charlie` account inside the `deploy_uniswap_v2.js` script (that you are about to run). The `feeToSetter` is the account that is responsible for future profit that result from trades. This account is set to `Charlie` for demonstration purposes only. **If you are running this script, you are responsible for correctly setting the `feeToSetter` account up and managing its private keys.**
 
 ```
@@ -150,15 +150,15 @@ Congratulations, the smart contracts are all deployed. You will see that all of 
 
 Now change into the `uniswap_interface` directory.
 ```
-cd ../uniswap_interface
+cd ~/uniswap-interface/how_to_deploy_uniswap/uniswap_interface
 ```
 Now run the `modify_addresses.py` script 
 ```
-python3 modify_addresses.py '../../src/'
+python3 modify_addresses.py
 ```
 Change back to the Uniswap directory so we can build the application.
 ```
-cd ../../
+cd ~/uniswap-interface/
 ```
 An `ls` should look like this (no build folder yet)
 ```
