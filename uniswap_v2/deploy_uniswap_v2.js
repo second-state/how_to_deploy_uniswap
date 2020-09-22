@@ -59,10 +59,13 @@ var URL = "";
     var uniswapUnisocksAbi = data_object.abi.unisocks;
     var uniswapWETHBytecode = data_object.bytecode.weth;
     var uniswapWETHAbi = data_object.abi.weth;
+    var gasRelayHubAddressAbi = data_object.abi.gas_relay_hub_address;
+    var gasRelayHubAddressBytecode = data_object.bytecode.gas_relay_hub_address;
 
     // Fee to setter account controls this factory forever. Please choose your feeToSetter account carefully
     // Must be secure and preserved; this is paramount
     var _feeToSetter = accounts[2];
+/*
     // Uniswap V2
     // V2 Factory Deployment
     console.log("Deploying Uniswap V2 now, please wait ...");
@@ -304,25 +307,41 @@ var URL = "";
         .then(function(newContractInstance) {
             console.log(newContractInstance.options.address) // instance with the new contract address
         });
-
-    /*
-            // V2 Unisocks Deployment
-            console.log("Deploying Unisocks now, please wait ...");
-            let unisocks;
-            unisocks = await web3.eth.sendTransaction({
-                from: accounts[2],
-                data: uniswapUnisocksBytecode
-            }); // Charlie accounts[2] is the owner
-            let uniswapUnisocksInstance = new web3.eth.Contract(uniswapUnisocksAbi, unisocks.contractAddress);
-            console.log(`\nUniswap V2 deployed at ${unisocks.contractAddress}`);
-            console.log(`\n${unisocks}`);
-            console.log(`\n${uniswapUnisocksInstance}`);
-            console.log(`Please store these details for future use ^^^\n`);
-            data_object.contract_address.unisocks = unisocks.contractAddress;
+*/
+    // V2 Gas relay hub address
+    console.log("Deploying Gas relay hub address contract now, please wait ...");
+    let gasRelayHubAddress;
+    gasRelayHubAddress = await web3.eth.sendTransaction({
+        from: accounts[2],
+        data: gasRelayHubAddressBytecode
+    }); // Charlie accounts[2] is the owner
+    let gasRelayHubAddressInstance = new web3.eth.Contract(gasRelayHubAddressAbi, gasRelayHubAddress.contractAddress);
+    gasRelayHubAddressInstance.deploy({
+            data: gasRelayHubAddressBytecode
+        })
+        .send({
+            from: accounts[2],
+            gas: 4700000,
+            gasPrice: '30000000000'
+        }, function(error, transactionHash) {
+            console.log(transactionHash);
+        })
+        .on('error', function(error) {
+            console.log(error);
+        })
+        .on('transactionHash', function(transactionHash) {
+            console.log("Transaction hash: " + transactionHash);
+        })
+        .on('receipt', function(receipt) {
+            console.log("Contract address: " + receipt.contractAddress) // contains the new contract address
+            data_object.contract_address.gas_relay_hub_address = receipt.contractAddress;
             let data_to_write = JSON.stringify(data_object, null, 2);
-            await write_data(data_to_write);
+            write_data(data_to_write);
+        })
+        .then(function(newContractInstance) {
+            console.log(newContractInstance.options.address) // instance with the new contract address
+        });
 
-    */
     let data_to_write = JSON.stringify(data_object, null, 2);
     await write_data(data_to_write);
     await provider.engine.stop();
