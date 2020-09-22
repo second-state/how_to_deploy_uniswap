@@ -25,6 +25,13 @@ function get_data() {
 // Dynamically fetch provider
     const URL = data_object.provider.rpc_endpoint;
 
+// gas_relay_hub_address
+    var gas_relay_hub_address = new web3.eth.Contract(data_object.abi.gas_relay_hub_address, data_object.contract_address.gas_relay_hub_address);
+    var version = gas_relay_hub_address.methods.version().call()
+        version.then(function(resultgas_relay_hub_address) {
+        console.log("Gas relay hub address version is set to: " + resultgas_relay_hub_address);
+    })
+
 // uniswap_factory
     var uniswapV1Contract = new web3.eth.Contract(data_object.abi.uniswap_factory, data_object.contract_address.uniswap_factory);
     var feeTo = uniswapV1Contract.methods.exchangeTemplate().call()
