@@ -1,8 +1,5 @@
 const fs = require('fs');
 const Web3 = require("web3");
-//const URL = 'https://mainnet.infura.io/v3/0920fdea265848a9b49dd72674c088a7';
-
-const web3 = new Web3(new Web3.providers.HttpProvider(URL));
 
 function get_data() {
     return new Promise(function(resolve, reject) {
@@ -15,15 +12,16 @@ function get_data() {
 
 
 (async () => {
-    await web3.eth.net.isListening();
-    console.log('Web3 is connected.');
-
 // Read the config
     var data = await get_data();
     var data_object = JSON.parse(data);
 
 // Dynamically fetch provider
     const URL = data_object.provider.rpc_endpoint;
+    const web3 = new Web3(new Web3.providers.HttpProvider(URL));
+
+    await web3.eth.net.isListening();
+    console.log('Web3 is connected.');
 
 // gas_relay_hub_address
     var gas_relay_hub_address = new web3.eth.Contract(data_object.abi.gas_relay_hub_address, data_object.contract_address.gas_relay_hub_address);
