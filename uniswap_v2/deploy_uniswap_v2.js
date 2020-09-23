@@ -65,7 +65,6 @@ var URL = "";
     // Fee to setter account controls this factory forever. Please choose your feeToSetter account carefully
     // Must be secure and preserved; this is paramount
     var _feeToSetter = accounts[2];
-/*
     // Uniswap V2
     // V2 Factory Deployment
     console.log("Deploying Uniswap V2 now, please wait ...");
@@ -307,7 +306,6 @@ var URL = "";
         .then(function(newContractInstance) {
             console.log(newContractInstance.options.address) // instance with the new contract address
         });
-*/
     // V2 Gas relay hub address
     console.log("Deploying Gas relay hub address contract now, please wait ...");
     let gasRelayHubAddress;
