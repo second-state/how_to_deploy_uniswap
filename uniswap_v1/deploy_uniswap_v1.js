@@ -140,7 +140,8 @@ var URL = "";
     console.log("Bob's Uniswap exchange is now live at: " + bobExchangeAddress);
     console.log(`Please store this factory address for future use ^^^\n`);
     data_object.contract_address.bob_exchange = bobExchangeAddress;
-
+    
+/* We can approve via the button in the interface
     // Approve user accounts to spend
     let approvalForAlice;
     approvalForAlice = await aliceTokenInstance.methods.approve(aliceExchangeAddress, web3.utils.toWei('100', 'ether')).send({
@@ -153,7 +154,8 @@ var URL = "";
         from: accounts[1]
     });
     console.log(approvalForBob);
-
+*/   
+/* We can add liquidity manually in the interface
     // Adding liquidity
     var amountOfAliceTokensToDeposit = web3.utils.toWei('100', 'ether');
     var amountOfBobTokensToDeposit = web3.utils.toWei('100', 'ether');
@@ -178,7 +180,7 @@ var URL = "";
         gas: "400000"
     });
     console.log(bobLiquidity);
-
+*/
     let data_to_write = JSON.stringify(data_object, null, 2);
     await write_data(data_to_write);
 
