@@ -185,6 +185,9 @@ one_to_two_II = "chainId\:\"1\""
 new_value = "MAINNET = 2"
 new_value_II = "chainId\:\"2\""
 ```
+```
+1: 'mainnet',
+```
 Be sure to escape `/` and `.` and `:` (as shown above) because these will break the command when executed.
 
 Now run this file
