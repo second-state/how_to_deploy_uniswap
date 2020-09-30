@@ -11,7 +11,7 @@ new_value = "MAINNET \= 2"
 new_value_II = "chainId\:\"2\""
 new_value_III = "chainId\:2"
 new_value_IV = "2\: \'mainnet\'"
-new_value_V = = "2\:\"0xa80171aB64F9913C5d0Df5b06D00030B4febDD6A\""
+new_value_V = "2\:\"0xa80171aB64F9913C5d0Df5b06D00030B4febDD6A\""
 
 sed_command_I = 's/' + one_to_two + '/' + new_value + '/g'
 sed_command_chain_II = 's/' + one_to_two_II + '/' + new_value_II + '/g'
