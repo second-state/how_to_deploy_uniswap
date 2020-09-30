@@ -181,13 +181,15 @@ Open the `how_to_deploy_uniswap/uniswap_interface/change_chain_id.py` file and e
 ```
 one_to_two = "MAINNET = 1"
 one_to_two_II = "chainId\:\"1\""
+one_to_two_III = "chainId:1"
+one_to_two_IV ="1: 'mainnet'"
 
 new_value = "MAINNET = 2"
 new_value_II = "chainId\:\"2\""
+new_value_III = "chainId:2"
+new_value_IV = "2: 'mainnet'"
 ```
-```
-1: 'mainnet',
-```
+
 Be sure to escape `/` and `.` and `:` (as shown above) because these will break the command when executed.
 
 Now run this file
