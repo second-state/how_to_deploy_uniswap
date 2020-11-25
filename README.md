@@ -90,8 +90,9 @@ Now run the Uniswap V1 smart contract installer.
 cd ~/uniswap-interface/how_to_deploy_uniswap/uniswap_v1
 ```
 ```
-node deploy_uniswap_v1.js
+python deploy_uniswap_v1.py
 ```
+
 If you open the `../installation_data.json` file, you will see that the Uniswap V1 contract addresses and the Alice and Bob (ERC20 and ERC20 Exchange) addresses have been automatically filled in.
 ```
 "contract_address": {
