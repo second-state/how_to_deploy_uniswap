@@ -35,9 +35,9 @@ git clone https://github.com/Uniswap/uniswap-interface.git
 Change into the Uniswap Interface directory.
 ```
 cd ~
-cd uniswap-interface
+cd uniswap_interface
 ```
-Now, whilst in the `~/uniswap-interface directory`, clone the "How To Install Uniswap" code using Git.
+Now, whilst in the `~/uniswap_interface directory`, clone the "How To Install Uniswap" code using Git.
 ```
 git clone https://github.com/second-state/how_to_deploy_uniswap.git
 ```
