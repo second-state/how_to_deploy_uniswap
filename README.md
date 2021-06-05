@@ -152,7 +152,7 @@ Now change into the `uniswap_interface` directory.
 ```
 cd ~/uniswap-interface/how_to_deploy_uniswap/uniswap_interface
 ```
-Now run the `modify_addresses.py` script 
+Now run the `modify_addresses.py` script // this command didn't add the addresses created by deploying uniswap_v1 and uniswap_v2, it only uses the addresses of the real uniswap, why ???
 ```
 python3 modify_addresses.py
 ```
